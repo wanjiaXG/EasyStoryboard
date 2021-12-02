@@ -1,12 +1,15 @@
-﻿using EasyStoryboard.Core.Resource.Enum;
+﻿using EasyStoryboard.Core.Common;
+using EasyStoryboard.Core.Resources.Enum;
 
-namespace EasyStoryboard.Core.Resource.Base
+namespace EasyStoryboard.Core.Resources.Base
 {
-    public abstract class BaseResource : IResource
+    public abstract class Resource
     {
+        public string FilePath { set; get; }
+
         public ResourceType ResourceType { private set; get; }
 
-        public BaseResource(ResourceType type)
+        public Resource(ResourceType type)
         {
             ResourceType = type;
         }

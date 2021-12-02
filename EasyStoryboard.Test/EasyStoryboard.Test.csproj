@@ -50,7 +50,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyStoryboard\EasyStoryboard.Core.csproj">
+    <ProjectReference Include="..\EasyStoryboard.Core\EasyStoryboard.Core.csproj">
       <Project>{3bd3f3ec-d22b-4852-9c8e-652a8766a986}</Project>
       <Name>EasyStoryboard.Core</Name>
     </ProjectReference>

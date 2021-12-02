@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Command
+namespace EasyStoryboard.Core
 {
-    public abstract class BaseCommand
+    public abstract class Command
     {
         public int StartTime { set; get; }
 

@@ -58,7 +58,7 @@ namespace EasyStoryboard.Core
                     FileInfo fileInfo = new FileInfo(value);
                     if(fileInfo == null || fileInfo.Directory == null)
                     {
-                        throw new Exception.CantGetFileDetailException(value);
+                        throw new Exception.CantGetFileInfoException(value);
                     }
                     MapPath = new FileInfo(value).Directory.FullName;
                     _filePath = value;
@@ -75,8 +75,6 @@ namespace EasyStoryboard.Core
         }
 
         public string MapPath { private set; get; }
-
-        public Layer Layer { private set; get; } = new Layer();
 
     }
 }

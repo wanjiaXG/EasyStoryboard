@@ -41,21 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\BaseCommand.cs" />
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Common\CommonUtil.cs" />
-    <Compile Include="Exception\CantGetFileDetailException.cs" />
+    <Compile Include="Common\SBLocation.cs" />
+    <Compile Include="Exception\CantGetFileInfoException.cs" />
     <Compile Include="Exception\FileNotFoundException.cs" />
-    <Compile Include="Layer.cs" />
-    <Compile Include="Resource\Animation.cs" />
-    <Compile Include="Resource\Background.cs" />
-    <Compile Include="Resource\Base\BaseResource.cs" />
-    <Compile Include="Resource\Base\IResource.cs" />
-    <Compile Include="Resource\Enum\ResourceType.cs" />
-    <Compile Include="Resource\Sample.cs" />
-    <Compile Include="Resource\Sprite.cs" />
-    <Compile Include="Resource\Video.cs" />
+    <Compile Include="Resources\Animation.cs" />
+    <Compile Include="Resources\Background.cs" />
+    <Compile Include="Resources\Base\GraphicsResource.cs" />
+    <Compile Include="Resources\Base\Resource.cs" />
+    <Compile Include="Resources\Base\SoundResource.cs" />
+    <Compile Include="Resources\Enum\LayerType.cs" />
+    <Compile Include="Resources\Enum\ResourceType.cs" />
+    <Compile Include="Resources\Sample.cs" />
+    <Compile Include="Resources\Sprite.cs" />
+    <Compile Include="Resources\Video.cs" />
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

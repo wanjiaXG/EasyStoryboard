@@ -1,4 +1,5 @@
 ﻿using EasyStoryboard.Core;
+using EasyStoryboard.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace EasyStoryboard.Test
     {
         static void Main(string[] args)
         {
-            //Storyboard sb = Storyboard.Open("222");
-            Storyboard sb = Storyboard.Open("666");
+            Video video = new Video("a.avi");
+            Console.WriteLine(video);
+            Console.ReadLine();
         }
     }
 }

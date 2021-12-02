@@ -1,4 +1,4 @@
-﻿namespace EasyStoryboard.Core.Resource.Enum
+﻿namespace EasyStoryboard.Core.Resources.Enum
 {
     public enum ResourceType
     {

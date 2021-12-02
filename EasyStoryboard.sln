@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyStoryboard.Core", "EasyStoryboard.Core\EasyStoryboard.Core.csproj", "{3BD3F3EC-D22B-4852-9C8E-652A8766A986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyStoryboard.Test", "EasyStoryboard.Test\EasyStoryboard.Test.csproj", "{12849E3C-A510-40E3-A990-B1384412A200}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BD3F3EC-D22B-4852-9C8E-652A8766A986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD3F3EC-D22B-4852-9C8E-652A8766A986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD3F3EC-D22B-4852-9C8E-652A8766A986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD3F3EC-D22B-4852-9C8E-652A8766A986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12849E3C-A510-40E3-A990-B1384412A200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12849E3C-A510-40E3-A990-B1384412A200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12849E3C-A510-40E3-A990-B1384412A200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12849E3C-A510-40E3-A990-B1384412A200}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09FF9EA3-1B75-4CF8-9853-13DEE0BA9DC2}
+	EndGlobalSection
+EndGlobal

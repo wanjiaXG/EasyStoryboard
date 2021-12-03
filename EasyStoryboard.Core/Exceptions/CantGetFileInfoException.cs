@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 
-namespace EasyStoryboard.Core.Exception
+namespace EasyStoryboard.Core.Exceptions
 {
     [Serializable]
     internal class CantGetFileInfoException : IOException

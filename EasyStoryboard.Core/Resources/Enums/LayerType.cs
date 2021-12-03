@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Resources.Enum
+namespace EasyStoryboard.Core.Resources.Enums
 {
     public enum LayerType
     {

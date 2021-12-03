@@ -5,7 +5,12 @@ namespace EasyStoryboard.Core
 {
     public class Storyboard
     {
-
+        public static int ScreenXMin = -110;
+        public static int ScreenXMax = 750;
+        public static int ScreenYMin = 0;
+        public static int ScreenYMax = 480;
+        public static int CenterX = 320;
+        public static int CenterY = 240;
         private Storyboard() { }
 
         public static Storyboard Parse(string code)
@@ -44,7 +49,7 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                throw new Exception.FileNotFoundException(file);
+                throw new Exceptions.FileNotFoundException(file);
             }
         }
 
@@ -58,14 +63,14 @@ namespace EasyStoryboard.Core
                     FileInfo fileInfo = new FileInfo(value);
                     if(fileInfo == null || fileInfo.Directory == null)
                     {
-                        throw new Exception.CantGetFileInfoException(value);
+                        throw new Exceptions.CantGetFileInfoException(value);
                     }
                     MapPath = new FileInfo(value).Directory.FullName;
                     _filePath = value;
                 }
                 else
                 {
-                    throw new Exception.FileNotFoundException(value);
+                    throw new Exceptions.FileNotFoundException(value);
                 }
             }
             get

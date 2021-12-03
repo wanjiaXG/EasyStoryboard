@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Exception
+namespace EasyStoryboard.Core.Exceptions
 {
     public class FileNotFoundException : IOException
     {

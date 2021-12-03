@@ -48,25 +48,25 @@ namespace EasyStoryboard.Core.Resources.Base
             List<string> list = new List<string>();
             list = CommonUtil.Parse(code,",");
 
-            string[] arr = code.Split(',');
-            if (arr.Length >= 3)
+            //string[] arr = code.Split(',');
+            if (list.Count >= 3)
             {
-                ResourceType type = CommonUtil.CastValue<ResourceType>(arr[0]);
+                ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
 
                 if (type != ResourceType)
                 {
                     throw new System.Exception("输入代码的资源类型与解析器的类型不匹配");
                 }
 
-                Offset = CommonUtil.CastValue<int>(arr[1]);
-                FilePath = CommonUtil.CastValue<string>(arr[2]);
+                Offset = CommonUtil.CastValue<int>(list[1]);
+                FilePath = CommonUtil.CastValue<string>(list[2]);
                 TrimFilePath();
             }
 
-            if (arr.Length >= 5)
+            if (list.Count >= 5)
             {
-                X = CommonUtil.CastValue<int>(arr[3]);
-                Y = CommonUtil.CastValue<int>(arr[4]);
+                X = CommonUtil.CastValue<int>(list[3]);
+                Y = CommonUtil.CastValue<int>(list[4]);
             }
         }
 

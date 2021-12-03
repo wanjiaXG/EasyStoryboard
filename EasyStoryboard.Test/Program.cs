@@ -14,10 +14,7 @@ namespace EasyStoryboard.Test
         static void Main(string[] args)
         {
             Background resource = new Background();
-            
-            resource.Load("0,0,\"Servent X Service OP.png\"");
-            resource.X = 240;
-            resource.Y = 320;
+            resource.Load("0,0,Servent X Service OP.png,");
             Console.WriteLine(resource);
             Console.ReadLine();
         }

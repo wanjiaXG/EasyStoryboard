@@ -113,8 +113,94 @@ namespace EasyStoryboard.Core.Common
             }
         }
 
+        private static char c = '"';
+
         public static List<string> Parse(string str, string separator)
         {
+            List<string> list = new List<string>();
+            if (!CheckNotNull(str, separator))
+            {
+                throw new ArgumentException();
+            }
+
+            if(str.Length == 0)
+            {
+                return list;
+            }
+
+            if(separator.Length == 0)
+            {
+                list.Add(str);
+                return list;
+            }
+
+            char[] strs = str.ToArray();
+            char[] seps = separator.ToCharArray();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < strs.Length; i++)
+            {
+                char current = strs[i];
+                
+                if (current == c)
+                {
+                    for (i++; i < strs.Length;i++)
+                    {
+                        current = strs[i];
+                        if(current == c)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            sb.Append(current);
+                        }
+                    }
+                }
+                else
+                {
+                    bool flag = false;
+                    for (int j =0; j < seps.Length; j++)
+                    {
+                        if(j + i >= strs.Length)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            if(seps[j] != strs[j + i])
+                            {
+                                break;
+                            }
+                        }
+
+                        if(j + 1 >= seps.Length)
+                        {
+                            flag = true;
+                        }
+                    }
+
+                    if (flag)
+                    {
+                        list.Add(sb.ToString());
+                        sb.Clear();
+                    }
+                    else
+                    {
+                        sb.Append(current);
+                    }
+
+                }
+                if(i + 1 >= strs.Length && sb.Length >= 1)
+                {
+                    list.Add(sb.ToString());
+                }
+            }
+
+            return list;
+/*
+
+
             List<string> list = new List<string>();
             if(!CheckNotNull(str, separator))
             {
@@ -161,7 +247,7 @@ namespace EasyStoryboard.Core.Common
                 
 
             }
-            return list;
+            return list;*/
         }
 
 

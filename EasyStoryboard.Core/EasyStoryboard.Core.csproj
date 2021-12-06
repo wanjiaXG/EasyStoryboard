@@ -41,13 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Common\CommonUtil.cs" />
-    <Compile Include="Common\SBLocation.cs" />
+    <Compile Include="Commands\Base\Command.cs" />
+    <Compile Include="Commands\Fade.cs" />
+    <Compile Include="Commands\Loop.cs" />
+    <Compile Include="Commands\Move.cs" />
+    <Compile Include="Commands\Parmenter.cs" />
+    <Compile Include="Commands\Rotate.cs" />
+    <Compile Include="Commands\Scale.cs" />
+    <Compile Include="Commands\Trigger.cs" />
+    <Compile Include="Commands\VectorScale.cs" />
+    <Compile Include="Commons\CommonUtil.cs" />
+    <Compile Include="Commons\SBLocation.cs" />
     <Compile Include="Exceptions\CantGetFileInfoException.cs" />
     <Compile Include="Exceptions\CodeArgumentException.cs" />
-    <Compile Include="Exceptions\FileNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidValueException.cs" />
+    <Compile Include="Layers.cs" />
+    <Compile Include="Container.cs" />
     <Compile Include="Resources\Animation.cs" />
     <Compile Include="Resources\Background.cs" />
     <Compile Include="Resources\Base\DynamicResource.cs" />
@@ -63,6 +72,7 @@
     <Compile Include="Resources\Video.cs" />
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoryboardParseMode.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

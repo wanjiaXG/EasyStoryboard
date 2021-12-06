@@ -12,7 +12,7 @@ namespace EasyStoryboard.Core
 
         public override string GetCode(bool optimize)
         {
-            return $"{GetResourceCode(optimize)},{Offset},{GetLayerCode(optimize)},\"{FilePath}\",{Volume}";
+            return $"{GetMaterialTypeCode(optimize)},{Offset},{GetLayerCode(optimize)},\"{FilePath}\",{Volume}";
         }
 
         protected override void LoadCode(string code)

@@ -1,4 +1,4 @@
-﻿using EasyStoryboard.Core.Common;
+﻿using EasyStoryboard.Core.Commons;
 using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
@@ -53,14 +53,14 @@ namespace EasyStoryboard.Core.Resources.Base
             {
                 ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
 
-                if (type != ResourceType)
+                if (type != MaterialType)
                 {
                     throw new System.Exception("输入代码的资源类型与解析器的类型不匹配");
                 }
 
                 Offset = CommonUtil.CastValue<int>(list[1]);
                 FilePath = CommonUtil.CastValue<string>(list[2]);
-                TrimFilePath();
+                //TrimFilePath();
             }
 
             if (list.Count >= 5)
@@ -73,8 +73,8 @@ namespace EasyStoryboard.Core.Resources.Base
         public override string GetCode(bool optimize)
         {
             return (X == 0 && Y == 0) ?
-                $"{GetResourceCode(optimize)},{Offset},\"{FilePath}\"" :
-                $"{GetResourceCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
+                $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\"" :
+                $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
         }
         public override string ToString()
         {

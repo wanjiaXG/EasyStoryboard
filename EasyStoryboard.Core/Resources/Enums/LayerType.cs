@@ -12,7 +12,6 @@ namespace EasyStoryboard.Core.Resources.Enums
         Fail,
         Pass,
         Foreground,
-        Overlay,
-        HitObject,
+        Overlay
     }
 }

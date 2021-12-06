@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core
 {
-    public abstract class Command
+    public enum StoryboardParseMode
     {
-        public int StartTime { set; get; }
-
-        public int EndTime { set; get; }
-
+        Stric, Loose
     }
 }

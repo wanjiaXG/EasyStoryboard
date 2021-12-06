@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Common
+namespace EasyStoryboard.Core.Commons
 {
     public class SBLocation
     {

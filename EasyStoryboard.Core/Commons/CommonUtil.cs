@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Common
+namespace EasyStoryboard.Core.Commons
 {
     class CommonUtil
     {
@@ -19,7 +19,7 @@ namespace EasyStoryboard.Core.Common
 
         public static void SetValue(object obj, string name, object value)
         {
-            CkeckArgument(obj, name, value);
+            CheckArgument(obj, name, value);
 
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
             Type type = obj.GetType();
@@ -52,7 +52,7 @@ namespace EasyStoryboard.Core.Common
         {
             try
             {
-                CkeckArgument(obj, info, value);
+                CheckArgument(obj, info, value);
                 info.SetValue(obj, CastValue(info.FieldType, value));
                 return true;
             }
@@ -66,7 +66,7 @@ namespace EasyStoryboard.Core.Common
         {
             try
             {
-                CkeckArgument(obj, info, value);
+                CheckArgument(obj, info, value);
                 info.SetValue(obj, CastValue(info.PropertyType, value));
                 return true;
             }
@@ -83,7 +83,7 @@ namespace EasyStoryboard.Core.Common
 
         public static object CastValue(Type type, object value)
         {
-            CkeckArgument(type, value);
+            CheckArgument(type, value);
             if (type.IsEnum)
             {
                 return Enum.Parse(type, value.ToString());
@@ -98,7 +98,7 @@ namespace EasyStoryboard.Core.Common
             }
         }
         
-        public static void CkeckArgument(params object[] objects)
+        public static void CheckArgument(params object[] objects)
         {
             if (!CheckNotNull(objects))
             {
@@ -113,7 +113,7 @@ namespace EasyStoryboard.Core.Common
             }
         }
 
-        private static char c = '"';
+        private static char dqm = '"';
 
         public static List<string> Parse(string str, string separator)
         {
@@ -142,12 +142,12 @@ namespace EasyStoryboard.Core.Common
             {
                 char current = strs[i];
                 
-                if (current == c)
+                if (current == dqm)
                 {
                     for (i++; i < strs.Length;i++)
                     {
                         current = strs[i];
-                        if(current == c)
+                        if(current == dqm)
                         {
                             break;
                         }
@@ -198,56 +198,6 @@ namespace EasyStoryboard.Core.Common
             }
 
             return list;
-/*
-
-
-            List<string> list = new List<string>();
-            if(!CheckNotNull(str, separator))
-            {
-                throw new ArgumentException();
-            }
-            int separatorLength = separator.Length;
-            int index = str.IndexOf(separator);
-            if (index == -1)
-            {
-                if(str.Length > 0)
-                {
-                    list.Add(str);
-                }
-            }
-            else
-            {
-                if (str.StartsWith("\""))
-                {
-                    index = str.Substring(1).IndexOf('"');
-                    if(index == -1)
-                    {
-                        throw new ArgumentException();
-                    }
-                    else
-                    {
-                        //0 index+2;
-                        list.Add(str.Substring(1, index));
-                        if(str.Length > index + 2)
-                        {
-                            //list.AddRange(Parse(,separator)
-                        }
-                        //
-                    }
-                }
-                else
-                {
-                    list.Add(str.Substring(0, index));
-                    int startIndex = index + separatorLength;
-                    if(startIndex < str.Length)
-                    {
-                        list.AddRange(Parse(str.Substring(startIndex), separator));
-                    }
-                }
-                
-
-            }
-            return list;*/
         }
 
 

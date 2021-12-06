@@ -1,51 +1,79 @@
-﻿using EasyStoryboard.Core.Common;
+﻿using EasyStoryboard.Core.Commons;
 using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources.Enums;
+using System.IO;
 
 namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class Resource
     {
-        public string FilePath { set; get; }
+        public string FileFullPath
+        {
+            set
+            {
+                if(value == null)
+                {
+                    throw new InvalidValueException("FileFullPath的值不能为null");
+                }
+                if (!File.Exists(value))
+                {
+                    throw new FileNotFoundException("", value);
+                }
+            }
+            get
+            {
+                return Storyboard. + "\\" + FilePath;
+            }
+        }
 
-        public ResourceType ResourceType { private set; get; }
+
+        public string FilePath
+        {
+            set;get;
+        }
+
+
+        public Storyboard Storyboard;
+
+
+        private ResourceType _resourceType;
 
         public Resource(ResourceType type)
         {
-            ResourceType = type;
+            _resourceType = type;
         }
 
-        public abstract string GetCode(bool optimize);
+        /// <summary>
+        /// 生成storyboard脚本
+        /// </summary>
+        /// <param name="optimize">是否开启压缩sb的功能</param>
+        /// <returns>storyboard脚本</returns>
+        public abstract string ToString(bool optimize);
 
+
+        public override string ToString()
+        {
+            return ToString(false);
+        }
+/*
         public void Load(string code) 
         {
             try
             {
-                CommonUtil.CkeckArgument(code);
-                LoadCode(code);
+                CommonUtil.CheckArgument(code);
+                //LoadCode(code);
             }
             catch (System.Exception e)
             {
-                throw new CodeArgumentException("Code: " + code + $"{e.Message}");
+                throw new CodeArgumentException("Code: \"" + code + $"\", Message: {e.Message}");
             }
         }
-
-        protected abstract void LoadCode(string code);
-
-        protected string GetResourceCode(bool optimize)
+*/
+        
+        protected string GetMaterialTypeCode(bool optimize)
         {
-            return CommonUtil.GetEnumValue(ResourceType, optimize);
+            return CommonUtil.GetEnumValue(_resourceType, optimize);
         }
-
-        protected void TrimFilePath()
-        {
-            if (FilePath != null && FilePath.StartsWith("\"") && FilePath.EndsWith("\""))
-            {
-                FilePath = FilePath.Substring(1, FilePath.Length - 2);
-            }
-        }
-
-
 
     }
 }

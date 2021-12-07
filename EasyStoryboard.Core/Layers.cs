@@ -16,7 +16,7 @@ namespace EasyStoryboard.Core
 
         private Layers() { }
 
-        internal static Layers GetInstance() => new Layers();
+        internal static Layers NewInstance() => new Layers();
 
     }
 }

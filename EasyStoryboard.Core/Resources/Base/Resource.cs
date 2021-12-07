@@ -7,6 +7,8 @@ namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class Resource
     {
+
+
         public string FileFullPath
         {
             set

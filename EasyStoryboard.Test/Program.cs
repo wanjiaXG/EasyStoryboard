@@ -13,37 +13,9 @@ namespace EasyStoryboard.Test
     {
         static void Main(string[] args)
         {
-            Container<Resource> resources = new Container<Resource>();
-            resources[0] = null;
-
-
-            //可以用绝对路径
-            //可以用相对路径
-
-            Storyboard filter = Storyboard.Open("");
-
-/*            Storyboard sb = new Storyboard();
-
-            sb.Append(filter);
-
-            sb.Save("c:\\ss.txt", true);
-
-
-
-
-
-
-            Video.Paser("");
-
-
-
-            Storyboard sb = Storyboard.Open("");
-            sb.Append(Storyboard.Open(""));
-
-
-            Background resource = new Background();
-            resource.Load("0,0,Servent X Service OP.png,");
-            Console.WriteLine(resource);*/
+            string path = @"F:\osu\Songs\1607795 Yonder Voice - Shrine Maiden - Eien No Miko\Yonder Voice - Shrine Maiden - Eien No Miko (__Ag).osb";
+            Storyboard storyboard = new Storyboard();
+            storyboard = Storyboard.Open(path);
             Console.ReadLine();
         }
     }

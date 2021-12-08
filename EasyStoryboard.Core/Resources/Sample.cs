@@ -10,14 +10,6 @@ namespace EasyStoryboard.Core
             FilePath = filePath;
         }
 
-        public override string GetCode(bool optimize)
-        {
-            return $"{GetMaterialTypeCode(optimize)},{Offset},{GetLayerCode(optimize)},\"{FilePath}\",{Volume}";
-        }
-
-        protected override void LoadCode(string code)
-        {
-            code.Split(',');
-        }
+        //Sample,<time>,<layer_num>,"<filepath>",<volume>
     }
 }

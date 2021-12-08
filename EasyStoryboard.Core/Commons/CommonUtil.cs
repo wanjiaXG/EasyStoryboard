@@ -115,7 +115,7 @@ namespace EasyStoryboard.Core.Commons
 
         private static char dqm = '"';
 
-        public static List<string> Parse(string str, string separator)
+        public static List<string> Split(string str, string separator, bool trim = false)
         {
             List<string> list = new List<string>();
             if (!CheckNotNull(str, separator))
@@ -130,7 +130,15 @@ namespace EasyStoryboard.Core.Commons
 
             if(separator.Length == 0)
             {
-                list.Add(str);
+                if (trim)
+                {
+                    list.Add(str.Trim());
+                }
+                else
+                {
+                    list.Add(str);
+                }
+                
                 return list;
             }
 
@@ -182,7 +190,14 @@ namespace EasyStoryboard.Core.Commons
 
                     if (flag)
                     {
-                        list.Add(sb.ToString());
+                        if (trim)
+                        {
+                            list.Add(sb.ToString().Trim());
+                        }
+                        else
+                        {
+                            list.Add(sb.ToString());
+                        }
                         sb.Clear();
                     }
                     else
@@ -193,7 +208,14 @@ namespace EasyStoryboard.Core.Commons
                 }
                 if(i + 1 >= strs.Length && sb.Length >= 1)
                 {
-                    list.Add(sb.ToString());
+                    if (trim)
+                    {
+                        list.Add(sb.ToString().Trim());
+                    }
+                    else
+                    {
+                        list.Add(sb.ToString());
+                    }
                 }
             }
 

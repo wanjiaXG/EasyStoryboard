@@ -1,5 +1,4 @@
 ﻿using EasyStoryboard.Core.Commons;
-using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace EasyStoryboard.Core.Resources.Base
             {
                 if(value > 100 || value < 0)
                 {
-                    throw new InvalidValueException("输入的值超出范围");
+                    throw new ArgumentException("输入的值超出范围");
                 }
                 Volume = value;
             }
@@ -32,12 +31,7 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public LayerType LayerType { set; get; }
 
-        protected SoundResource(ResourceType type) : base(type) { }
-
-        protected string GetLayerCode(bool optimize)
-        {
-            return CommonUtil.GetEnumValue(LayerType, optimize);
-        }
+        internal SoundResource(ResourceType type) : base(type) { }
 
     }
 }

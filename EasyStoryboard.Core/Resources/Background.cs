@@ -7,9 +7,5 @@ namespace EasyStoryboard.Core
     {
         public Background() : base(ResourceType.Background) { }
 
-        public override string GetCode(bool optimize)
-        {
-            return base.GetCode(true);
-        }
     }
 }

@@ -22,51 +22,16 @@ namespace EasyStoryboard.Core
 
         #endregion
 
-        internal List<Video> Video { get; } = new List<Video>();
-        internal List<GraphicsResource> Background { get; } = new List<GraphicsResource>();
-        internal List<GraphicsResource> Pass { get; } = new List<GraphicsResource>();
-        internal List<GraphicsResource> Fail { get; } = new List<GraphicsResource>();
-        internal List<GraphicsResource> Foreground { get; } = new List<GraphicsResource>();
-        internal List<GraphicsResource> Overlay { get; } = new List<GraphicsResource>();
+        internal List<StaticResource> StaticResource { get; } = new List<StaticResource>();
+        internal List<DynamicResource> Background { get; } = new List<DynamicResource>();
+        internal List<DynamicResource> Pass { get; } = new List<DynamicResource>();
+        internal List<DynamicResource> Fail { get; } = new List<DynamicResource>();
+        internal List<DynamicResource> Foreground { get; } = new List<DynamicResource>();
+        internal List<DynamicResource> Overlay { get; } = new List<DynamicResource>();
         internal List<SoundResource> SoundSample { get; } = new List<SoundResource>();
-
-        /*        public string BaseDirectory { private set; get; }
-
-                private string _FilePath;
-                public string FilePath 
-                {
-                    set
-                    {
-                        if (string.IsNullOrWhiteSpace(value))
-                        {
-                            throw new ArgumentException("FilePath can't be null.");
-                        }
-
-                        if (File.Exists(value))
-                        {
-                            FileInfo info = new FileInfo(value);
-                            BaseDirectory = info.DirectoryName;
-                            _FilePath = info.FullName;
-                        }
-                        else
-                        {
-                            File.WriteAllBytes(value, new byte[0]);
-                            FileInfo info = new FileInfo(value);
-                            BaseDirectory = info.DirectoryName;
-                            _FilePath = info.FullName;
-                            info.Delete();
-                        }
-                    }
-                    get
-                    {
-                        return _FilePath;
-                    }
-                }
-                public string ResourcePath { set; get; }*/
-
         public IEnumerable<Resource> GetAllResource()
         {
-            foreach(var item in Video)
+            foreach(var item in StaticResource)
             {
                 yield return item;
             }
@@ -104,15 +69,6 @@ namespace EasyStoryboard.Core
 
         public Storyboard() { }
 
-/*        public Storyboard(string filePath)
-        {
-            FilePath = filePath;
-        }
-        public Storyboard(string filePath, string resourcePath) : this(filePath)
-        {
-            ResourcePath = resourcePath;
-        }*/
-
         public void Add(Resource resource)
         {
             if(resource == null)
@@ -121,9 +77,51 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                switch(resource.)
+                //Video
+                //Background
+                //Pass
+                //Fail
+                //Foreground
+                //SoundSample
+                if(resource is StaticResource sRes)
+                {
+                    StaticResource.Add(sRes);
+                }
+                else if(resource is DynamicResource dRes)
+                {
+                    switch (dRes.LayerType)
+                    {
+                        case Resources.Enums.LayerType.Background:
+                            Background.Add(dRes);
+                            break;
 
-                this.Resources.Add(resource);
+                        case Resources.Enums.LayerType.Fail:
+                            Fail.Add(dRes);
+                            break;
+
+                        case Resources.Enums.LayerType.Pass:
+                            Pass.Add(dRes);
+                            break;
+
+                        case Resources.Enums.LayerType.Foreground:
+                            Foreground.Add(dRes);
+                            break;
+
+                        case Resources.Enums.LayerType.Overlay:
+                            Overlay.Add(dRes);
+                            break;
+                        default:
+                            throw new ArgumentException("Unknow resource object.");
+                    }
+                }
+                else if(resource is SoundResource ssRes)
+                {
+                    SoundSample.Add(ssRes);
+                }
+                else
+                {
+                    throw new ArgumentException("Unknow resource object.");
+                }
             }
         }
         public void AddRange(IEnumerable<Resource> collection)
@@ -141,26 +139,16 @@ namespace EasyStoryboard.Core
             }
         }
 
-
-
         public void Append(Storyboard sb)
         {
             if (sb == null) throw new ArgumentException("Argument is null, can't append.");
 
             if (Equals(sb)) throw new ArgumentException("Can't append self.");
 
-            foreach(Resource res in sb.Resources)
+            foreach(Resource res in sb.GetAllResource())
             {
-                this.Resources.Add(res);
+                Add(res);
             }
-
-/*            Layers.Video.AddRange(sb.Layers.Video);
-            Layers.Background.AddRange(sb.Layers.Background);
-            Layers.Fail.AddRange(sb.Layers.Fail);
-            Layers.Pass.AddRange(sb.Layers.Pass);
-            Layers.Foreground.AddRange(sb.Layers.Foreground);
-            Layers.Overlay.AddRange(sb.Layers.Overlay);
-            Layers.SoundSample.AddRange(sb.Layers.SoundSample);*/
         }
 
         #region Build
@@ -185,11 +173,13 @@ namespace EasyStoryboard.Core
         }
         #endregion
 
-
-        
-
         public static Storyboard Parse(string code)
         {
+            List<string> list = Commons.CommonUtil.Split(code, "\n");
+            foreach(var line in list)
+            {
+                
+            }
             return new Storyboard();
         }
 
@@ -198,9 +188,7 @@ namespace EasyStoryboard.Core
         {
             using(StreamReader sr = new StreamReader(stream, encoding))
             {
-                Storyboard sb = Parse(sr.ReadToEnd());
-                //sb.FilePath = stream.Name;
-                return sb;
+                return Parse(sr.ReadToEnd());
             }
         }
 

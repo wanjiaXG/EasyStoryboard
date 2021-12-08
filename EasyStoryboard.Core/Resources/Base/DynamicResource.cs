@@ -1,4 +1,5 @@
-﻿using EasyStoryboard.Core.Commons;
+﻿using EasyStoryboard.Core.Commands.Base;
+using EasyStoryboard.Core.Commons;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,8 @@ namespace EasyStoryboard.Core.Resources.Base
 
         List<Command> Commands { get; } = new List<Command>();
 
-        public DynamicResource(ResourceType type) : base(type)
+        internal DynamicResource(ResourceType type) : base(type)
         {
-        }
-
-        protected string GetLayerTypeCode(bool optimize)
-        {
-            return CommonUtil.GetEnumValue(LayerType, optimize);
-        }
-
-        protected string GetOriginTypeCode(bool optimize)
-        {
-            return CommonUtil.GetEnumValue(OriginType, optimize);
         }
     }
 }

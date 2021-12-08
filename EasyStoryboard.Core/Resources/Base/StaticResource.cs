@@ -1,5 +1,4 @@
 ﻿using EasyStoryboard.Core.Commons;
-using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace EasyStoryboard.Core.Resources.Base
     {
         public int Offset { set; get; }
 
-        protected StaticResource(ResourceType type) : base(type) { }
+        internal StaticResource(ResourceType type) : base(type) { }
 
         protected StaticResource(string filePath, ResourceType type) : this(type)
         {
@@ -37,16 +36,10 @@ namespace EasyStoryboard.Core.Resources.Base
             return this;
         }
 
-        public StaticResource SetFilePath(string filePath)
-        {
-            FilePath = filePath;
-            return this;
-        }
-
-        protected override void LoadCode(string code)
+/*        protected override void LoadCode(string code)
         {
             List<string> list = new List<string>();
-            list = CommonUtil.Parse(code,",");
+            list = CommonUtil.Split(code,",");
 
             //string[] arr = code.Split(',');
             if (list.Count >= 3)
@@ -75,10 +68,6 @@ namespace EasyStoryboard.Core.Resources.Base
             return (X == 0 && Y == 0) ?
                 $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\"" :
                 $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
-        }
-        public override string ToString()
-        {
-            return GetCode(false);
-        }
+        }*/
     }
 }

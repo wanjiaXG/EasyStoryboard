@@ -10,6 +10,15 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public ResourceType ResourceType { private set; get; }
 
+        public StoryboardLayerType StoryboardLayerType { set; get; }
+
+        public Resource SetStoryboardLayerType(StoryboardLayerType type)
+        {
+            StoryboardLayerType = type;
+            return this;
+        }
+
+
         internal Resource(ResourceType type)
         {
             ResourceType = type;

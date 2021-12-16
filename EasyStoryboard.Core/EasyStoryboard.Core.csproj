@@ -54,6 +54,7 @@
     <Compile Include="Commons\SBLocation.cs" />
     <Compile Include="IRename.cs" />
     <Compile Include="OsbBuilder.cs" />
+    <Compile Include="ResourceGroup.cs" />
     <Compile Include="Resources\Animation.cs" />
     <Compile Include="Resources\Background.cs" />
     <Compile Include="Resources\Base\DynamicResource.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoryboardLayer.cs" />
+    <Compile Include="StoryboardLayerType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

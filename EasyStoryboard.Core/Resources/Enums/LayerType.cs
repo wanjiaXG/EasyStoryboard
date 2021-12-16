@@ -8,10 +8,10 @@ namespace EasyStoryboard.Core.Resources.Enums
 {
     public enum LayerType
     {
-        Background,
-        Fail,
-        Pass,
-        Foreground,
-        Overlay
+        Background = 0,
+        Fail = 1,
+        Pass = 2,
+        Foreground = 3,
+        Overlay = 4
     }
 }

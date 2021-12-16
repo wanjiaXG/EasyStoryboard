@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core
 {
-    class StoryboardLayer
+    public class StoryboardLayer
     {
+        public StoryboardLayer()
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            string[] names = typeof(StoryboardLayerType).GetEnumNames();
+        }
     }
+
 }

@@ -155,13 +155,12 @@ namespace EasyStoryboard.Core
                 DescriptionAttribute attr = (DescriptionAttribute)memberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
                 string header = attr.Description;
 
-                sb.Append(header + "\r\n");
+                sb.Append(header).Append("\r\n");
 
                 foreach(var resGrop in Resources[item])
                 {
                     foreach(var res in resGrop.Resources)
                     {
-
                         sb.Append(res);
                     }
                 }

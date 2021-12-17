@@ -34,14 +34,16 @@ namespace EasyStoryboard.Core
             }
         }
 
-        public void Show()
+        public ResourceGroup Show()
         {
             Visible = true;
+            return this;
         }
         
-        public void Hide()
+        public ResourceGroup Hide()
         {
             Visible = false;
+            return this;
         }
 
         public List<Resource> Resources { private set; get; }

@@ -31,7 +31,7 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public LayerType LayerType { set; get; }
 
-        internal SoundResource(ResourceType type) : base(type) { }
+        internal SoundResource(ResourceType type, string filePath) : base(type, filePath) { }
 
     }
 }

@@ -6,7 +6,7 @@ namespace EasyStoryboard.Core.Resources
 {
     public class Video : StaticResource
     {
-        public Video() : base(ResourceType.Video) { }
+        public Video(string) : base(ResourceType.Video) { }
         //Video,startTime,filename,xOffset,yOffset
 
     }

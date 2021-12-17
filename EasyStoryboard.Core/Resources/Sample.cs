@@ -5,11 +5,17 @@ namespace EasyStoryboard.Core
 {
     public class Sample : SoundResource
     {
-        public Sample(string filePath) : base(ResourceType.Sample)
+        public Sample(string filePath) : base(ResourceType.Sample, filePath)
         {
-            FilePath = filePath;
+
+        }
+
+        public override void Load(string code)
+        {
+
         }
 
         //Sample,<time>,<layer_num>,"<filepath>",<volume>
+
     }
 }

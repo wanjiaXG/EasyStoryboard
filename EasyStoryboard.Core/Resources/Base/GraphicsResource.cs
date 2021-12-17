@@ -31,7 +31,7 @@ namespace EasyStoryboard.Core.Resources.Base
             }
         }
 
-        internal GraphicsResource(ResourceType type) : base(type) { }
+        internal GraphicsResource(ResourceType type, string filePath) : base(type, filePath) { }
     
     }
 }

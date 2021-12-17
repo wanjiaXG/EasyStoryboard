@@ -6,30 +6,30 @@ namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class Resource
     {
-        public string FilePath { set; get; }
+        #region StoryboardLayerType
+        internal StoryboardLayerType StoryboardLayerType { set; get; }
 
-        public ResourceType ResourceType { private set; get; }
-
-        public StoryboardLayerType StoryboardLayerType { set; get; }
-
-        public Resource SetStoryboardLayerType(StoryboardLayerType type)
+        internal Resource SetStoryboardLayerType(StoryboardLayerType type)
         {
             StoryboardLayerType = type;
             return this;
         }
+        #endregion
 
-
-        internal Resource(ResourceType type)
+        internal Resource(ResourceType type, string filePath)
         {
             ResourceType = type;
-        }
-
-        public Resource() { }
-
-        public Resource(string filePath) 
-        {
             FilePath = filePath;
         }
 
+        public string FilePath { set; get; }
+
+        public ResourceType ResourceType { private set; get; }
+
+        public Resource() { }
+
+        public abstract void Load(string code);
+
+        public abstract void 
     }
 }

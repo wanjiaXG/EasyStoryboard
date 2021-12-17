@@ -31,7 +31,9 @@ namespace EasyStoryboard.Test
 
                         Console.WriteLine((LayerType)(-100));*/
 
-            string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
+            //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
+            Storyboard sb = new Storyboard("123.osb");
+            sb.Save();
             Console.ReadLine();
         }
     }

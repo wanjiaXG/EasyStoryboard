@@ -1,10 +1,10 @@
-﻿using EasyStoryboard.Core.Resources;
-using EasyStoryboard.Core.Resources.Base;
+﻿using EasyStoryboard.Core.Resources.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Text;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace EasyStoryboard.Core
 {
@@ -30,7 +30,6 @@ namespace EasyStoryboard.Core
             int lineNum = 1;
             foreach (var line in list)
             {
-
                 lineNum++;
             }
             return sb;
@@ -102,13 +101,13 @@ namespace EasyStoryboard.Core
         private void InitResources()
         {
             Resources = new Dictionary<string, List<ResourceGroup>>();
-            foreach(var item in typeof(StoryboardLayer).GetEnumNames())
+            foreach(var item in typeof(StoryboardLayerType).GetEnumNames())
             {
                 Resources.Add(item, new List<ResourceGroup>());
             }
         }
 
-        public Storyboard(string filePath)
+        public Storyboard(string filePath) : this()
         {
             FileInfo info = new FileInfo(filePath);
             BaseDirectory = info.DirectoryName;
@@ -134,18 +133,41 @@ namespace EasyStoryboard.Core
         {
             StoryboardLayerType type = group.StoryboardLayerType;
             List<ResourceGroup> list = Resources[type.ToString()];
-            if (list.Contains(group))
-            {
-                throw new ArgumentException("ResourceGroup can't be duplicate");
-            }
-            else
+            if (!list.Contains(group))
             {
                 list.Add(group);
             }
+            else
+            {
+                throw new ArgumentException("ResourceGroup can't be duplicate");
+            }
         }
 
-        public void Remove(ResourceGroup)
+        public void Save()
+        {
+            Type type = typeof(StoryboardLayerType);
 
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[Events]\r\n");
+            foreach(var item in type.GetEnumNames())
+            {
+                MemberInfo memberInfo = type.GetMember(item)[0];
+                DescriptionAttribute attr = (DescriptionAttribute)memberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
+                string header = attr.Description;
+
+                sb.Append(header + "\r\n");
+
+                foreach(var resGrop in Resources[item])
+                {
+                    foreach(var res in resGrop.Resources)
+                    {
+
+                        sb.Append(res);
+                    }
+                }
+            }
+            File.WriteAllText(BaseDirectory + "\\" + FileName, sb.ToString().TrimEnd());
+        }
 
     }
 }

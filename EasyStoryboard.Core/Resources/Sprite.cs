@@ -10,6 +10,16 @@ namespace EasyStoryboard.Core
         {
         }
 
+        public override string GetCode(Storyboard storyboard, SaveOptions options)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void LoadCode(Storyboard storyboard, string code)
+        {
+            throw new System.NotImplementedException();
+        }
+
         //Sprite,Pass,Centre,"Text\Play2-HaveFunH.png",320,240
     }
 }

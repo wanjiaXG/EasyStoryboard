@@ -64,8 +64,17 @@ namespace EasyStoryboard.Core
 
         public static Storyboard Open(string filPath, Encoding encoding)
         {
+            if (string.IsNullOrWhiteSpace(filPath))
+            {
+                throw new ArgumentException($"Argument can't be space or null");
+            }
+
             FileInfo info = new FileInfo(filPath);
-            if (info.Exists)
+            if (!info.Exists)
+            {
+                throw new FileNotFoundException($"Can't open file '{filPath}', file not found.", filPath);
+            }
+            else
             {
                 using (FileStream stream = File.OpenRead(filPath))
                 {
@@ -74,10 +83,6 @@ namespace EasyStoryboard.Core
                     sb.FileName = info.Name;
                     return sb;
                 }
-            }
-            else
-            {
-                throw new FileNotFoundException($"Can't open file '{filPath}', file not found.", filPath);
             }
         }
 
@@ -89,30 +94,37 @@ namespace EasyStoryboard.Core
 
         private Dictionary<string, List<ResourceGroup>> Resources;
 
-        public string BaseDirectory { private set; get; }
+        public string BaseDirectory { set; get; }
 
         public string FileName { set; get; }
 
-        public Storyboard() 
-        {
-            InitResources();
-        }
-
-        private void InitResources()
+        public Storyboard(string filePath = "")
         {
             Resources = new Dictionary<string, List<ResourceGroup>>();
-            foreach(var item in typeof(StoryboardLayerType).GetEnumNames())
+            foreach (var item in typeof(ResoureLayerType).GetEnumNames())
             {
                 Resources.Add(item, new List<ResourceGroup>());
             }
+            if (!string.IsNullOrWhiteSpace(filePath))
+            {
+                FileInfo info = new FileInfo(filePath);
+                BaseDirectory = info.DirectoryName;
+                FileName = info.Name;
+            }
         }
 
-        public Storyboard(string filePath) : this()
+        public void Append(Storyboard sb)
         {
-            FileInfo info = new FileInfo(filePath);
-            BaseDirectory = info.DirectoryName;
-            FileName = info.Name;
+            if(sb == null)
+            {
+                throw new ArgumentException("Arguments can't be null.");
+            }
+            foreach(var item in Resources)
+            {
+                
+            }
         }
+
 
         public void AddRange(IEnumerable<ResourceGroup> groups)
         {
@@ -131,7 +143,7 @@ namespace EasyStoryboard.Core
 
         public void Add(ResourceGroup group)
         {
-            StoryboardLayerType type = group.StoryboardLayerType;
+            ResoureLayerType type = group.StoryboardLayerType;
             List<ResourceGroup> list = Resources[type.ToString()];
             if (!list.Contains(group))
             {
@@ -143,26 +155,24 @@ namespace EasyStoryboard.Core
             }
         }
 
-        public void Save()
+        public void Save(SaveOptions options)
         {
-            Type type = typeof(StoryboardLayerType);
+            Type type = typeof(ResoureLayerType);
 
             StringBuilder sb = new StringBuilder();
             sb.Append("[Events]\r\n");
             foreach(var item in type.GetEnumNames())
             {
                 MemberInfo memberInfo = type.GetMember(item)[0];
-                DescriptionAttribute attr = (DescriptionAttribute)memberInfo.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-                string header = attr.Description;
+                StoryboardHeaderAttribute attr = (StoryboardHeaderAttribute)memberInfo.GetCustomAttributes(typeof(StoryboardHeaderAttribute), false)[0];
 
-                sb.Append(header + "\r\n");
+                sb.Append(attr.Header).Append("\r\n");
 
                 foreach(var resGrop in Resources[item])
                 {
                     foreach(var res in resGrop.Resources)
                     {
-
-                        sb.Append(res);
+                        sb.Append(res.GetCode(this, options)).Append("\r\n");
                     }
                 }
             }

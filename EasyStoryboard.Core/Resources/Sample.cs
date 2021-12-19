@@ -10,6 +10,16 @@ namespace EasyStoryboard.Core
             FilePath = filePath;
         }
 
+        public override string GetCode(Storyboard storyboard, SaveOptions options)
+        {
+            return "";
+        }
+
+        public override void LoadCode(Storyboard storyboard, string code)
+        {
+
+        }
+
         //Sample,<time>,<layer_num>,"<filepath>",<volume>
     }
 }

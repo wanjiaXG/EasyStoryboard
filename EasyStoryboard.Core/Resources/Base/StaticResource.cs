@@ -19,7 +19,7 @@ namespace EasyStoryboard.Core.Resources.Base
             FilePath = filePath;
         }
 
-        protected StaticResource(string filePath, SBLocation location, ResourceType type) : this(filePath, type)
+        protected StaticResource(string filePath, Location location, ResourceType type) : this(filePath, type)
         {
             Location = location;
         }
@@ -30,7 +30,7 @@ namespace EasyStoryboard.Core.Resources.Base
             return this;
         }
 
-        public StaticResource SetLocation(SBLocation location)
+        public StaticResource SetLocation(Location location)
         {
             Location = location;
             return this;

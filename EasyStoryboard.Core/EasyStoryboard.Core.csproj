@@ -51,7 +51,7 @@
     <Compile Include="Commands\Trigger.cs" />
     <Compile Include="Commands\VectorScale.cs" />
     <Compile Include="Commons\CommonUtil.cs" />
-    <Compile Include="Commons\SBLocation.cs" />
+    <Compile Include="Commons\Location.cs" />
     <Compile Include="IRename.cs" />
     <Compile Include="OsbBuilder.cs" />
     <Compile Include="ResourceGroup.cs" />
@@ -70,7 +70,9 @@
     <Compile Include="Resources\Video.cs" />
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoryboardLayerType.cs" />
+    <Compile Include="ResoureLayerType.cs" />
+    <Compile Include="SaveOptions.cs" />
+    <Compile Include="StoryboardHeaderAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

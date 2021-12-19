@@ -10,14 +10,13 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public ResourceType ResourceType { private set; get; }
 
-        public StoryboardLayerType StoryboardLayerType { set; get; }
+        public ResoureLayerType ResoureLayerType { set; get; }
 
-        public Resource SetStoryboardLayerType(StoryboardLayerType type)
+        public Resource SetStoryboardLayerType(ResoureLayerType type)
         {
-            StoryboardLayerType = type;
+            ResoureLayerType = type;
             return this;
         }
-
 
         internal Resource(ResourceType type)
         {
@@ -28,10 +27,16 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public Resource(string filePath) 
         {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"file '{filePath}' not found!", filePath);
+            }
             FilePath = filePath;
         }
 
-        public abstract string GetCode(StoryboardOutputOptions options);
+        public abstract void LoadCode(Storyboard storyboard, string code);
+
+        public abstract string GetCode(Storyboard storyboard, SaveOptions options);
 
     }
 }

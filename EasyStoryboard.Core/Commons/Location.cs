@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Commons
 {
-    public class SBLocation
+    public class Location
     {
         public int X { set; get; }
         public int Y { set; get; }
 
-        public SBLocation(int x, int y)
+        public Location(int x, int y)
         {
             X = x;
             Y = y;

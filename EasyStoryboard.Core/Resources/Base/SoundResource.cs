@@ -19,7 +19,7 @@ namespace EasyStoryboard.Core.Resources.Base
             {
                 if(value > 100 || value < 0)
                 {
-                    throw new ArgumentException("输入的值超出范围");
+                    throw new ArgumentException("Volume out of bounds, the valid range is 0-100");
                 }
                 Volume = value;
             }

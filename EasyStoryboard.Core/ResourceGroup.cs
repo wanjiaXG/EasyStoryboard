@@ -14,8 +14,8 @@ namespace EasyStoryboard.Core
 
         public bool Visible { private set; get; } = true;
 
-        private StoryboardLayerType _storyboardLayerType;
-        public StoryboardLayerType StoryboardLayerType
+        private ResoureLayerType _storyboardLayerType;
+        public ResoureLayerType StoryboardLayerType
         {
             set
             {
@@ -24,7 +24,7 @@ namespace EasyStoryboard.Core
                     _storyboardLayerType = value;
                     foreach(var item in Resources)
                     {
-                        item.StoryboardLayerType = value;
+                        item.ResoureLayerType = value;
                     }
                 }
             }

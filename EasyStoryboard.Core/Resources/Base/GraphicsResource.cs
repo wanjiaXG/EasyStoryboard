@@ -5,7 +5,7 @@ namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class GraphicsResource : Resource
     {
-        public SBLocation Location { set; get; } = new SBLocation(0, 0);
+        public Location Location { set; get; } = new Location(0, 0);
 
         public int X 
         {

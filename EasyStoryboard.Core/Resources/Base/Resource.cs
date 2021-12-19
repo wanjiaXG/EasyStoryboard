@@ -31,5 +31,7 @@ namespace EasyStoryboard.Core.Resources.Base
             FilePath = filePath;
         }
 
+        public abstract string GetCode(StoryboardOutputOptions options);
+
     }
 }

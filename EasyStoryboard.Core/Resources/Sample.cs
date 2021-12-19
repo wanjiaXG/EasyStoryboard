@@ -5,9 +5,14 @@ namespace EasyStoryboard.Core
 {
     public class Sample : SoundResource
     {
-        public Sample(string filePath) : base(ResourceType.Sample)
+        public Sample(string filePath) : base(ResourceType.Sample, filePath)
         {
-            FilePath = filePath;
+
+        }
+
+        public override void Load(string code)
+        {
+
         }
 
         public override string GetCode(Storyboard storyboard, SaveOptions options)
@@ -21,5 +26,6 @@ namespace EasyStoryboard.Core
         }
 
         //Sample,<time>,<layer_num>,"<filepath>",<volume>
+
     }
 }

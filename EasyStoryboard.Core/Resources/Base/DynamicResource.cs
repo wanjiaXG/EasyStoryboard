@@ -17,8 +17,6 @@ namespace EasyStoryboard.Core.Resources.Base
 
         List<Command> Commands { get; } = new List<Command>();
 
-        internal DynamicResource(ResourceType type) : base(type)
-        {
-        }
+        internal DynamicResource(ResourceType type, string filePath) : base(type, filePath) { }
     }
 }

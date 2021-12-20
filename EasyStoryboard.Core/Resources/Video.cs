@@ -1,21 +1,18 @@
-﻿using EasyStoryboard.Core.Commons;
-using EasyStoryboard.Core.Resources.Base;
+﻿using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
+using System;
 
 namespace EasyStoryboard.Core.Resources
 {
     public class Video : StaticResource
     {
-        public Video() : base(ResourceType.Video) { }
+        public Video() : this("") { }
 
-        public override string GetCode(Storyboard storyboard, SaveOptions options)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Video(string filePath) : base(ResourceType.Video, filePath) { }
 
-        public override void LoadCode(Storyboard storyboard, string code)
+        public override string GetCode(Storyboard sb, SaveOptions ops)
         {
-            throw new System.NotImplementedException();
+            //string fileName = ops.Rename.GetNewName(  )
         }
 
 

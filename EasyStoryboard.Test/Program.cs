@@ -34,8 +34,9 @@ namespace EasyStoryboard.Test
             //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
             Storyboard sb = new Storyboard("a.osb");
             sb.Save(SaveOptions.Default);
-            
 
+            Video video = new Video();
+            video.
             Console.ReadLine();
         }
     }

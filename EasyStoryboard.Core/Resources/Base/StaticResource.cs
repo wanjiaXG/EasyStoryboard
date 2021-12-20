@@ -10,19 +10,9 @@ namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class StaticResource : GraphicsResource
     {
+        internal StaticResource(ResourceType type, string filePath) : base(type, filePath) { }
+
         public int Offset { set; get; }
-
-        internal StaticResource(ResourceType type) : base(type) { }
-
-        protected StaticResource(string filePath, ResourceType type) : this(type)
-        {
-            FilePath = filePath;
-        }
-
-        protected StaticResource(string filePath, Location location, ResourceType type) : this(filePath, type)
-        {
-            Location = location;
-        }
 
         public StaticResource SetOffset(int offset)
         {
@@ -36,24 +26,28 @@ namespace EasyStoryboard.Core.Resources.Base
             return this;
         }
 
-/*        protected override void LoadCode(string code)
+        public override void LoadCode(Storyboard sb, string code)
         {
-            List<string> list = new List<string>();
-            list = CommonUtil.Split(code,",");
+            if (sb == null || string.IsNullOrWhiteSpace(code))
+            {
+                throw new ArgumentException("Arguments can't be null");
+            }
 
-            //string[] arr = code.Split(',');
+            List<string> list = CommonUtil.Split(code, ",");
+
             if (list.Count >= 3)
             {
                 ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
 
-                if (type != MaterialType)
+                if (type == ResourceType.Video || type == ResourceType.Background)
                 {
-                    throw new System.Exception("输入代码的资源类型与解析器的类型不匹配");
+                    Offset = CommonUtil.CastValue<int>(list[1]);
+                    FilePath = sb.BaseDirectory + "//" + CommonUtil.CastValue<string>(list[2]);
                 }
-
-                Offset = CommonUtil.CastValue<int>(list[1]);
-                FilePath = CommonUtil.CastValue<string>(list[2]);
-                //TrimFilePath();
+                else
+                {
+                    throw new ArgumentException("ResourceType is not Background or Video");
+                }
             }
 
             if (list.Count >= 5)
@@ -63,11 +57,41 @@ namespace EasyStoryboard.Core.Resources.Base
             }
         }
 
-        public override string GetCode(bool optimize)
-        {
-            return (X == 0 && Y == 0) ?
-                $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\"" :
-                $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
-        }*/
+
+
+
+        /*        protected override void LoadCode(string code)
+                {
+                    List<string> list = new List<string>();
+                    list = CommonUtil.Split(code,",");
+
+                    //string[] arr = code.Split(',');
+                    if (list.Count >= 3)
+                    {
+                        ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
+
+                        if (type != MaterialType)
+                        {
+                            throw new System.Exception("输入代码的资源类型与解析器的类型不匹配");
+                        }
+
+                        Offset = CommonUtil.CastValue<int>(list[1]);
+                        FilePath = CommonUtil.CastValue<string>(list[2]);
+                        //TrimFilePath();
+                    }
+
+                    if (list.Count >= 5)
+                    {
+                        X = CommonUtil.CastValue<int>(list[3]);
+                        Y = CommonUtil.CastValue<int>(list[4]);
+                    }
+                }
+
+                public override string GetCode(bool optimize)
+                {
+                    return (X == 0 && Y == 0) ?
+                        $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\"" :
+                        $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
+                }*/
     }
 }

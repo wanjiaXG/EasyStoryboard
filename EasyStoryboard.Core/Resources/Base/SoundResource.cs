@@ -21,7 +21,7 @@ namespace EasyStoryboard.Core.Resources.Base
                 {
                     throw new ArgumentException("Volume out of bounds, the valid range is 0-100");
                 }
-                Volume = value;
+                _volume = value;
             }
             get
             {
@@ -31,7 +31,7 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public LayerType LayerType { set; get; }
 
-        internal SoundResource(ResourceType type, string filePath) : base(type, filePath) { }
+        internal SoundResource(ResourceType type) : base(type) { }
 
     }
 }

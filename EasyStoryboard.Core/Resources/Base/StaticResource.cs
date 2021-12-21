@@ -10,7 +10,6 @@ namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class StaticResource : GraphicsResource
     {
-        internal StaticResource(ResourceType type, string filePath) : base(type, filePath) { }
 
         public int Offset { set; get; }
 
@@ -26,7 +25,7 @@ namespace EasyStoryboard.Core.Resources.Base
             return this;
         }
 
-        public override void LoadCode(Storyboard sb, string code)
+        public void LoadCode(Storyboard sb, string code)
         {
             if (sb == null || string.IsNullOrWhiteSpace(code))
             {
@@ -42,7 +41,7 @@ namespace EasyStoryboard.Core.Resources.Base
                 if (type == ResourceType.Video || type == ResourceType.Background)
                 {
                     Offset = CommonUtil.CastValue<int>(list[1]);
-                    FilePath = sb.BaseDirectory + "//" + CommonUtil.CastValue<string>(list[2]);
+                    //FilePath = sb.BaseDirectory + "//" + CommonUtil.CastValue<string>(list[2]);
                 }
                 else
                 {

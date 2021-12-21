@@ -24,7 +24,7 @@ namespace EasyStoryboard.Core
                     _storyboardLayerType = value;
                     foreach(var item in Resources)
                     {
-                        item.ResoureLayerType = value;
+                        //item.ResoureLayerType = value;
                     }
                 }
             }
@@ -55,7 +55,7 @@ namespace EasyStoryboard.Core
 
         public ResourceGroup Add(Resource resource)
         {
-            Resources.Add(resource.SetStoryboardLayerType(StoryboardLayerType));
+            //Resources.Add(resource.SetStoryboardLayerType(StoryboardLayerType));
             return this;
         }
 

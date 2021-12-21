@@ -64,10 +64,7 @@ namespace EasyStoryboard.Core
 
         public static Storyboard Open(string filPath, Encoding encoding)
         {
-            if (string.IsNullOrWhiteSpace(filPath))
-            {
-                throw new ArgumentException($"Argument can't be space or null");
-            }
+            if (string.IsNullOrWhiteSpace(filPath)) throw new ArgumentException($"Argument can't be space or null");
 
             FileInfo info = new FileInfo(filPath);
             if (!info.Exists)
@@ -172,7 +169,7 @@ namespace EasyStoryboard.Core
                 {
                     foreach(var res in resGrop.Resources)
                     {
-                        sb.Append(res.GetCode(this, options)).Append("\r\n");
+                        //sb.Append(res.GetCode(this, options)).Append("\r\n");
                     }
                 }
             }

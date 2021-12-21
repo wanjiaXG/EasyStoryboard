@@ -3,27 +3,27 @@
     public enum ResourceType
     {
         /// <summary>
-        /// 静态图片资源
+        /// Static image
         /// </summary>
         Background = 0,
 
         /// <summary>
-        /// 视频资源
+        /// Video
         /// </summary>
         Video = 1,
 
         /// <summary>
-        /// 动态图片资源
+        /// Dynamic image
         /// </summary>
         Sprite = 4,
         
         /// <summary>
-        /// SB音效
+        /// Sound sample
         /// </summary>
         Sample = 5,
         
         /// <summary>
-        /// 帧动画
+        /// Frame animation
         /// </summary>
         Animation = 6
     }

@@ -60,7 +60,6 @@
     <Compile Include="Resources\Base\DynamicResource.cs" />
     <Compile Include="Resources\Base\GraphicsResource.cs" />
     <Compile Include="Resources\Base\Resource.cs" />
-    <Compile Include="Resources\Base\SoundResource.cs" />
     <Compile Include="Resources\Base\StaticResource.cs" />
     <Compile Include="Resources\Enums\LayerType.cs" />
     <Compile Include="Resources\Enums\OriginType.cs" />

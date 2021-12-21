@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Resources.Base
 {
-    public abstract class DynamicResource : GraphicsResource
+    public abstract class DynamicResource
     {
         public LayerType LayerType { set; get; }
 
@@ -17,6 +17,5 @@ namespace EasyStoryboard.Core.Resources.Base
 
         List<Command> Commands { get; } = new List<Command>();
 
-        internal DynamicResource(ResourceType type, string filePath) : base(type, filePath) { }
     }
 }

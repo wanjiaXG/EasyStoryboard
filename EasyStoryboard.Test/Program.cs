@@ -33,10 +33,15 @@ namespace EasyStoryboard.Test
 
             //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
             Storyboard sb = new Storyboard("a.osb");
-            sb.Save(SaveOptions.Default);
 
-            Video video = new Video();
-            video.
+            Sample sample = new Sample(null);
+            sample.BaseDirectory = null;
+            sample.RelativePath = null;
+            sample.AbsoluteFilePath = null;// @"D:\\123\sb\46.jpg";
+            Console.WriteLine(sample.BaseDirectory);
+            Console.WriteLine(sample.RelativePath);
+            Console.WriteLine(sample.AbsoluteFilePath);
+            Console.WriteLine(sample.GetCode(SaveOptions.Default));
             Console.ReadLine();
         }
     }

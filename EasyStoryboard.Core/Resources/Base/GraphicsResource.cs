@@ -3,10 +3,8 @@ using EasyStoryboard.Core.Resources.Enums;
 
 namespace EasyStoryboard.Core.Resources.Base
 {
-    public abstract class GraphicsResource : Resource
+    public abstract class GraphicsResource
     {
-        internal GraphicsResource(ResourceType type, string filePath) : base(type, filePath) { }
-
         public Location Location { set; get; } = new Location(0, 0);
 
         public int X 

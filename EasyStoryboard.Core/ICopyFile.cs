@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core
 {
-    public interface IRename
+    public interface ICopyFile
     {
-        string GetNewName(string oldName);
+        string GetNewName(string baseDirectory, string relativePath, string sourcePath);
     }
 }

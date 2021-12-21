@@ -2,6 +2,7 @@
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.IO;
+using System.Text;
 
 namespace EasyStoryboard.Core
 {
@@ -45,8 +46,22 @@ namespace EasyStoryboard.Core
         {
             if (!File.Exists(AbsoluteFilePath)) throw new FileNotFoundException($"File '{AbsoluteFilePath}' not found.");
 
+            string filePath = ops.CopyFile.GetNewName(ops.OuputDirectory, RelativePath, AbsoluteFilePath);
 
-            return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Commons.CommonUtil.GetEnumValue(ResourceType, ops.Optimize))
+                .Append(',')
+                .Append(Offset)
+                .Append(',')
+                .Append(Commons.CommonUtil.GetEnumValue(LayerType,ops.Optimize))
+                .Append('"')
+                .Append(filePath)
+                .Append('"')
+                .Append(',')
+                .Append(Volume);
+
+            return sb.ToString();
         }
 
         public override void LoadCode(Storyboard sb, string code)

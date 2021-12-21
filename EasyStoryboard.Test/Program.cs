@@ -37,7 +37,7 @@ namespace EasyStoryboard.Test
             Sample sample = new Sample(null);
             sample.BaseDirectory = null;
             sample.RelativePath = null;
-            sample.AbsoluteFilePath = null;// @"D:\\123\sb\46.jpg";
+            sample.AbsoluteFilePath = @"C:\Users\admin\Desktop\ProductImages\image2.jpeg";// @"D:\\123\sb\46.jpg";
             Console.WriteLine(sample.BaseDirectory);
             Console.WriteLine(sample.RelativePath);
             Console.WriteLine(sample.AbsoluteFilePath);

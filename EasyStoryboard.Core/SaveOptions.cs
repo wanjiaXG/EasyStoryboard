@@ -16,6 +16,15 @@ namespace EasyStoryboard.Core
 
         public string ResourceDirectory { set; get; } = "storyboard";
 
-        public IRename Rename { set; get; }
+        public ICopyFile CopyFile { set; get; } = new CopyFileImpl();
+
+        private class CopyFileImpl : ICopyFile
+        {
+            public string GetNewName(string baseDirectory, string relativePath, string sourcePath)
+            {
+                string newPath = baseDirectory + "\\" + relativePath;
+                return relativePath;
+            }
+        }
     }
 }

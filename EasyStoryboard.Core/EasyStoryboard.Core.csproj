@@ -52,8 +52,7 @@
     <Compile Include="Commands\VectorScale.cs" />
     <Compile Include="Commons\CommonUtil.cs" />
     <Compile Include="Commons\Location.cs" />
-    <Compile Include="IRename.cs" />
-    <Compile Include="OsbBuilder.cs" />
+    <Compile Include="ICopyFile.cs" />
     <Compile Include="ResourceGroup.cs" />
     <Compile Include="Resources\Animation.cs" />
     <Compile Include="Resources\Background.cs" />

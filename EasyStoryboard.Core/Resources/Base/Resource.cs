@@ -75,7 +75,7 @@ namespace EasyStoryboard.Core.Resources.Base
             {
                 if (value != null)
                 {
-                    _BaseDirectory = new DirectoryInfo(value).FullName; ;
+                    _BaseDirectory = new DirectoryInfo(value + "\\").FullName; ;
                 }
             }
             get
@@ -87,12 +87,6 @@ namespace EasyStoryboard.Core.Resources.Base
         public ResourceType ResourceType { protected set; get; }
 
         public ResoureLayerType ResoureLayerType { protected set; get; }
-
-/*        internal Resource SetStoryboardLayerType(ResoureLayerType type)
-        {
-            ResoureLayerType = type;
-            return this;
-        }*/
 
         internal Resource(string filePath)
         {

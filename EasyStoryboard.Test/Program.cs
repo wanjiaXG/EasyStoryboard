@@ -36,11 +36,14 @@ namespace EasyStoryboard.Test
 
             Options options = new Options();
             options.Optimize = true;
-            options.OuputDirectory = @"D:\\dist";
+            options.OuputDirectory = @"D:\\\\\dist";
 
-            new DirectoryInfo(options.OuputDirectory).Delete(true);
+            if (Directory.Exists(options.OuputDirectory))
+            {
+                new DirectoryInfo(options.OuputDirectory).Delete(true);
+            }
 
-            Sample sample = new Sample(@"D:\1\demo.png");
+            Sample sample = new Sample(@"D:", @"\\1\\demo.png");
             sample.Offset = 2563;
             Console.WriteLine(sample.BaseDirectory);
             Console.WriteLine(sample.RelativePath);

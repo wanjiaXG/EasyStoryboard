@@ -33,6 +33,7 @@ namespace EasyStoryboard.Core.Commons
                 }
             }
         }
+       
         public static bool CheckNotNull(params object[] objects)
         {
             if(objects == null)
@@ -106,6 +107,7 @@ namespace EasyStoryboard.Core.Commons
                 throw new ArgumentException();
             }
         }
+      
         public static void CkeckArgument(Exception e, params object[] objects)
         {
             if (!CheckNotNull(objects))
@@ -222,6 +224,7 @@ namespace EasyStoryboard.Core.Commons
 
             return list;
         }
+        
         public static string GetFileMD5Hash(string path)
         {
             try

@@ -1,8 +1,11 @@
 ﻿using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
+using static EasyStoryboard.Core.Commons.CommonUtil;
 
 namespace EasyStoryboard.Core
 {
@@ -10,7 +13,7 @@ namespace EasyStoryboard.Core
     {
         public int Offset { set; get; }
 
-        private int _volume = 100;
+        private int _volume;
 
         public int Volume
         {
@@ -36,6 +39,7 @@ namespace EasyStoryboard.Core
 
         public override void Init()
         {
+            Volume = 100;
             ResourceType = ResourceType.Sample;
             ResoureLayerType = ResoureLayerType.SampleSound;
             LayerType = LayerType.Background;
@@ -47,11 +51,11 @@ namespace EasyStoryboard.Core
             string filePath = ops.CopyFile.GetFilePath(ops.OuputDirectory, RelativePath, AbsoluteFilePath);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(Commons.CommonUtil.GetEnumValue(ResourceType, ops.Optimize))
+            sb.Append(GetEnumValue(ResourceType, ops.Optimize))
                 .Append(',')
                 .Append(Offset)
                 .Append(',')
-                .Append(Commons.CommonUtil.GetEnumValue(LayerType, ops.Optimize))
+                .Append(GetEnumValue(LayerType, ops.Optimize))
                 .Append(',')
                 .Append('"')
                 .Append(filePath)
@@ -64,9 +68,33 @@ namespace EasyStoryboard.Core
 
         public override void LoadCode(Storyboard sb, string code)
         {
-            
-        }
+            List<string> list = Split(code, ",");
+            if(list.Count != 5)
+            {
+                throw new ArgumentException("Code Format error.");
+            }
+            else
+            {
+                if(Enum.TryParse(list[0], out ResourceType type) && type.Equals(ResourceType.Sample))
+                {
+                    if(int.TryParse(list[1], out int offset))
+                    {
+                        Offset = offset;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Offset is not number.");
+                    }
 
+
+
+                }
+                else
+                {
+                    throw new ArgumentException("ResourceType is not Sample.");
+                }
+            }
+        }
 
     }
 }

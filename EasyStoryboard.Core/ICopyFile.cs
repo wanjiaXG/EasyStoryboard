@@ -8,6 +8,6 @@ namespace EasyStoryboard.Core
 {
     public interface ICopyFile
     {
-        string GetFilePath(string baseDirectory, string relativePath, string sourcePath);
+        string GetFilePath(string outputDirectory, string relativePath, string sourcePath);
     }
 }

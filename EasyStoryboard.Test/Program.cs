@@ -1,4 +1,5 @@
 ﻿using EasyStoryboard.Core;
+using EasyStoryboard.Core.Commands;
 using EasyStoryboard.Core.Resources;
 using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
@@ -32,16 +33,73 @@ namespace EasyStoryboard.Test
                         Console.WriteLine((LayerType)(-100));*/
 
             //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
-            Storyboard sb = new Storyboard("a.osb");
+
+            Fade fade = new Fade();
+            fade.LoadCode("F,4,2121,1212,0.5,0.9");
+            Console.WriteLine(fade);
+
+            Loop loop = new Loop();
+            loop.Add(fade);
+            loop.Add(fade);
+            loop.Add(fade);
+            loop.Add(fade);
+
+            Loop l2 = new Loop();
+            l2.Add(fade);
+            l2.Add(fade);
+            l2.Add(fade);
+            l2.Add(fade);
+
+            Loop l3 = new Loop();
+            l3.Add(fade);
+            l3.Add(fade);
+            l3.Add(fade);
+            l3.Add(fade);
+
+            l2.Add(l3);
+            loop.Add(l2);
+            loop.Add(fade);
+            loop.Add(fade);
+            loop.Add(fade);
+            loop.Add(fade);
+
+            Console.WriteLine(loop);
+
+            Console.WriteLine("");
 
             Options options = new Options();
-            options.Optimize = true;
+            options.Optimize = false;
             options.OuputDirectory = @"D:\\\\\dist";
+
+
+            Storyboard sb = new Storyboard("a.osb");
+            sb.BaseDirectory = @"D:";
+
+            Background background = new Background();
+            background.LoadCode(sb.BaseDirectory, "0,256,\"SB/demo.png\",320,450");
+            Console.WriteLine(background.GetCode(options));
+            Console.WriteLine();
+
+
+
+
+
+            string code = "5,1236,1,\"SB/demo.png\",56";
+            Sample s = new Sample();
+            s.LoadCode(sb.BaseDirectory, code);
+            
+
+
+            
 
             if (Directory.Exists(options.OuputDirectory))
             {
                 new DirectoryInfo(options.OuputDirectory).Delete(true);
             }
+
+            Console.WriteLine(s.GetCode(options));
+            Console.WriteLine();
+
 
             Sample sample = new Sample(@"D:", @"\\1\\demo.png");
             sample.Offset = 2563;

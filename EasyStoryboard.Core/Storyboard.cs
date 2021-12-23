@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.ComponentModel;
 using System.Reflection;
+using EasyStoryboard.Core.Attributes;
 
 namespace EasyStoryboard.Core
 {
@@ -91,7 +92,21 @@ namespace EasyStoryboard.Core
 
         private Dictionary<string, List<ResourceGroup>> Resources;
 
-        public string BaseDirectory { set; get; }
+        private string _BaseDirectory;
+        public string BaseDirectory
+        {
+            set
+            {
+                if (value != null)
+                {
+                    _BaseDirectory = new DirectoryInfo(value + "\\").FullName; ;
+                }
+            }
+            get
+            {
+                return _BaseDirectory;
+            }
+        }
 
         public string FileName { set; get; }
 
@@ -161,7 +176,7 @@ namespace EasyStoryboard.Core
             foreach(var item in type.GetEnumNames())
             {
                 MemberInfo memberInfo = type.GetMember(item)[0];
-                StoryboardHeaderAttribute attr = (StoryboardHeaderAttribute)memberInfo.GetCustomAttributes(typeof(StoryboardHeaderAttribute), false)[0];
+                HeaderAttribute attr = (HeaderAttribute)memberInfo.GetCustomAttributes(typeof(HeaderAttribute), false)[0];
 
                 sb.Append(attr.Header).Append("\r\n");
 

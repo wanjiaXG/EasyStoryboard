@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core
+namespace EasyStoryboard.Core.Attributes
 {
-    public class StoryboardHeaderAttribute : Attribute
+    public class HeaderAttribute : Attribute
     {
         public string Header { private set; get; }
 
-        public StoryboardHeaderAttribute(string header)
+        public HeaderAttribute(string header)
         {
             Header = header;
         }

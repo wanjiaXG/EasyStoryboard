@@ -15,11 +15,11 @@ namespace EasyStoryboard.Core
         private Dictionary<string, string> files = new Dictionary<string, string>();
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string GetFilePath(string outDirectory, string relativePath, string sourcePath)
+        public string GetFilePath(string outputDirectory, string relativePath, string sourcePath)
         {
-            outDirectory = new DirectoryInfo(outDirectory).FullName;
+            outputDirectory = new DirectoryInfo(outputDirectory).FullName;
 
-            relativePath = new FileInfo(outDirectory + "\\" + relativePath).FullName.Replace(outDirectory, "");
+            relativePath = new FileInfo(outputDirectory + "\\" + relativePath).FullName.Replace(outputDirectory, "");
 
             sourcePath = new FileInfo(sourcePath).FullName;
 
@@ -33,7 +33,7 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                string newPath = outDirectory + "\\" + relativePath;
+                string newPath = outputDirectory + "\\" + relativePath;
 
                 if (!File.Exists(newPath))
                 {
@@ -55,7 +55,6 @@ namespace EasyStoryboard.Core
                         dic.Add(newPath, num);
                     }
 
-
                     string oldMd5 = Commons.CommonUtil.GetFileMD5Hash(newPath);
 
                     if (!oldMd5.Equals(currentMd5))
@@ -64,7 +63,7 @@ namespace EasyStoryboard.Core
                         newPath = info.DirectoryName + "\\" + info.Name.Replace(info.Extension, "");
                         newPath = newPath + "_" + num + info.Extension;
                         File.Copy(sourcePath, newPath);
-                        relativePath = newPath.Replace(outDirectory, "");
+                        relativePath = newPath.Replace(outputDirectory, "");
                         files.Add(currentMd5, relativePath);
                     }
                 }

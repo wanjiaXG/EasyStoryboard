@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Base\Command.cs" />
+    <Compile Include="Commands\Base\BaseCommand.cs" />
+    <Compile Include="Commands\Base\ContainerCommand.cs" />
     <Compile Include="Commands\Fade.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Loop.cs" />
     <Compile Include="Commands\Move.cs" />
     <Compile Include="Commands\Parmenter.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Commons\CommonUtil.cs" />
     <Compile Include="Commons\Location.cs" />
     <Compile Include="DirectCopy.cs" />
+    <Compile Include="Enums\CommandType.cs" />
+    <Compile Include="Enums\EasingType.cs" />
     <Compile Include="ICopyFile.cs" />
     <Compile Include="ResourceGroup.cs" />
     <Compile Include="Resources\Animation.cs" />
@@ -61,18 +65,20 @@
     <Compile Include="Resources\Base\GraphicsResource.cs" />
     <Compile Include="Resources\Base\Resource.cs" />
     <Compile Include="Resources\Base\StaticResource.cs" />
-    <Compile Include="Resources\Enums\LayerType.cs" />
-    <Compile Include="Resources\Enums\OriginType.cs" />
-    <Compile Include="Resources\Enums\ResourceType.cs" />
+    <Compile Include="Enums\LayerType.cs" />
+    <Compile Include="Enums\OriginType.cs" />
+    <Compile Include="Enums\ResourceType.cs" />
     <Compile Include="Resources\Sample.cs" />
     <Compile Include="Resources\Sprite.cs" />
     <Compile Include="Resources\Video.cs" />
     <Compile Include="Storyboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResoureLayerType.cs" />
+    <Compile Include="Enums\ResoureLayerType.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="StoryboardHeaderAttribute.cs" />
+    <Compile Include="Attributes\HeaderAttribute.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Enums\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

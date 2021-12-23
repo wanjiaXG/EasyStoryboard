@@ -6,91 +6,83 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static EasyStoryboard.Core.Commons.CommonUtil;
+
 namespace EasyStoryboard.Core.Resources.Base
 {
     public abstract class StaticResource : GraphicsResource
     {
+        public StaticResource(ResoureLayerType resoureLayerType,
+            ResourceType resourceType) : base(resoureLayerType, resourceType) { }
+
+        public StaticResource(string filePath, 
+            ResoureLayerType resoureLayerType, 
+            ResourceType resourceType) : base(filePath, resoureLayerType, resourceType) { }
+
+
+        public StaticResource(string baseDirectory, 
+            string relativePath, 
+            ResoureLayerType resoureLayerType, 
+            ResourceType resourceType) : base(baseDirectory, relativePath, resoureLayerType, resourceType) { }
+
+
 
         public int Offset { set; get; }
 
-        public StaticResource SetOffset(int offset)
+        protected void SetOffset(string value)
         {
-            Offset = offset;
-            return this;
-        }
-
-        public StaticResource SetLocation(Location location)
-        {
-            Location = location;
-            return this;
-        }
-
-        public void LoadCode(Storyboard sb, string code)
-        {
-            if (sb == null || string.IsNullOrWhiteSpace(code))
+            if (int.TryParse(value, out int offset))
             {
-                throw new ArgumentException("Arguments can't be null");
+                Offset = offset;
             }
-
-            List<string> list = CommonUtil.Split(code, ",");
-
-            if (list.Count >= 3)
+            else
             {
-                ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
-
-                if (type == ResourceType.Video || type == ResourceType.Background)
-                {
-                    Offset = CommonUtil.CastValue<int>(list[1]);
-                    //FilePath = sb.BaseDirectory + "//" + CommonUtil.CastValue<string>(list[2]);
-                }
-                else
-                {
-                    throw new ArgumentException("ResourceType is not Background or Video");
-                }
-            }
-
-            if (list.Count >= 5)
-            {
-                X = CommonUtil.CastValue<int>(list[3]);
-                Y = CommonUtil.CastValue<int>(list[4]);
+                throw new ArgumentException("Offset is not number.");
             }
         }
 
+        public override string GetCode(Options ops)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            sb.Append(GetEnumValue(ResourceType, ops.Optimize))
+                .Append(',')
+                .Append(Offset)
+                .Append(',')
+                .Append('"')
+                .Append(ops.CopyFile.GetFilePath(ops.OuputDirectory, RelativePath, AbsoluteFilePath))
+                .Append('"');
 
+            if(X != 0 || Y != 0)
+            {
+                sb.Append(',')
+                    .Append(X)
+                    .Append(',')
+                    .Append(Y);
+            }
 
-        /*        protected override void LoadCode(string code)
+            return sb.ToString();
+        }
+
+        public override void LoadCode(string baseDirectory, string code)
+        {
+            CheckStrings(baseDirectory, code);
+            List<string> list = Split(code, ",");
+            if(list.Count == 3 || list.Count == 5)
+            {
+                CheckResourcType(list[0]);
+                SetOffset(list[1]);
+                SetFileName(baseDirectory, list[2]);
+                if (list.Count == 5)
                 {
-                    List<string> list = new List<string>();
-                    list = CommonUtil.Split(code,",");
-
-                    //string[] arr = code.Split(',');
-                    if (list.Count >= 3)
-                    {
-                        ResourceType type = CommonUtil.CastValue<ResourceType>(list[0]);
-
-                        if (type != MaterialType)
-                        {
-                            throw new System.Exception("输入代码的资源类型与解析器的类型不匹配");
-                        }
-
-                        Offset = CommonUtil.CastValue<int>(list[1]);
-                        FilePath = CommonUtil.CastValue<string>(list[2]);
-                        //TrimFilePath();
-                    }
-
-                    if (list.Count >= 5)
-                    {
-                        X = CommonUtil.CastValue<int>(list[3]);
-                        Y = CommonUtil.CastValue<int>(list[4]);
-                    }
+                    X = CastValue<int>(list[3]);
+                    Y = CastValue<int>(list[4]);
                 }
-
-                public override string GetCode(bool optimize)
-                {
-                    return (X == 0 && Y == 0) ?
-                        $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\"" :
-                        $"{GetMaterialTypeCode(optimize)},{Offset},\"{FilePath}\",{X},{Y}";
-                }*/
+            }
+            else
+            {
+                throw new ArgumentException("Code Format error.");
+            }
+        }
     }
 }

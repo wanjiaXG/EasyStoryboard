@@ -1,7 +1,12 @@
 ﻿using EasyStoryboard.Core.Commons;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+
+using static EasyStoryboard.Core.Commons.CommonUtil;
 
 namespace EasyStoryboard.Core.Resources.Base
 {
@@ -88,24 +93,53 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public ResoureLayerType ResoureLayerType { protected set; get; }
 
-        internal Resource(string filePath)
+        public Resource(string filePath, 
+            ResoureLayerType resoureLayerType, 
+            ResourceType resourceType) : this(resoureLayerType, resourceType)
         {
             AbsoluteFilePath = filePath;
-            Init();
         }
 
-        internal Resource(string baseDirectory, string relativePath)
+        public Resource(string baseDirectory, 
+            string relativePath, 
+            ResoureLayerType resoureLayerType,
+            ResourceType resourceType) : this(resoureLayerType, resourceType)
         {
             BaseDirectory = baseDirectory;
             RelativePath = relativePath;
-            Init();
         }
 
-        public abstract void Init();
+        public Resource(ResoureLayerType type, ResourceType resourceType) 
+        {
+            ResoureLayerType = type;
+            ResourceType = resourceType;
+        }
 
-        public abstract void LoadCode(Storyboard sb, string code);
+        public abstract void LoadCode(string baseDirectory, string code);
 
         public abstract string GetCode(Options ops);
+
+        protected void CheckResourcType(string type)
+        {
+            if (!Enum.TryParse(type, out ResourceType resType) || !resType.Equals(ResourceType))
+            {
+                throw new ArgumentException($"ResourceType is not {ResourceType}.");
+            }
+        }
+
+        protected void SetFileName(string baseDirectoty, string relativePath)
+        {
+            string fileName = baseDirectoty + "\\" + relativePath;
+            if (File.Exists(fileName))
+            {
+                BaseDirectory = baseDirectoty;
+                RelativePath = relativePath;
+            }
+            else
+            {
+                throw new FileNotFoundException($"File '{fileName}' not found.");
+            }
+        }
 
     }
 }

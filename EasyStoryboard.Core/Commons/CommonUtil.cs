@@ -9,124 +9,38 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Commons
 {
-    class CommonUtil
+    internal class CommonUtil
     {
-        public static string GetEnumValue(Enum obj, bool getNum)
+        public static void CheckStrings(params string[] objects)
         {
-            return getNum ?
-                obj.GetHashCode().ToString() :
-                obj.ToString();
-        }
-
-        public static void SetValue(object obj, string name, object value)
-        {
-            CheckArgument(obj, name, value);
-
-            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-            Type type = obj.GetType();
-            
-            if(!SetPropertyValue(obj, type.GetProperty(name, flags), value))
+            foreach (var item in objects)
             {
-                if (!SetFieldValue(obj, type.GetField(name, flags), value))
+                if (string.IsNullOrWhiteSpace(item))
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("Arguments can't be null or space.");
                 }
             }
         }
-       
-        public static bool CheckNotNull(params object[] objects)
+
+        public static void CheckNotNull(params object[] objects)
         {
-            if(objects == null)
+            foreach (var item in objects)
             {
-                return false;
-            }
-            foreach(var item in objects)
-            {
-                if(item == null)
+                if (item == null)
                 {
-                    return false;
+                    throw new ArgumentException("Arguments can't be null.");
                 }
             }
-            return true;
         }
 
-        public static bool SetFieldValue(object obj, FieldInfo info, object value)
-        {
-            try
-            {
-                CheckArgument(obj, info, value);
-                info.SetValue(obj, CastValue(info.FieldType, value));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static bool SetPropertyValue(object obj, PropertyInfo info, object value)
-        {
-            try
-            {
-                CheckArgument(obj, info, value);
-                info.SetValue(obj, CastValue(info.PropertyType, value));
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static T CastValue<T>(object value)
-        {
-            return (T)CastValue(typeof(T), value);
-        }
-
-        public static object CastValue(Type type, object value)
-        {
-            CheckArgument(type, value);
-            if (type.IsEnum)
-            {
-                return Enum.Parse(type, value.ToString());
-            }
-/*            else if (type.IsValueType)
-            {
-                return Convert.ChangeType(value, Type.GetTypeCode(type));
-            }*/
-            else
-            {
-                return Convert.ChangeType(value, type);
-            }
-        }
-        
-        public static void CheckArgument(params object[] objects)
-        {
-            if (!CheckNotNull(objects))
-            {
-                throw new ArgumentException();
-            }
-        }
-      
-        public static void CkeckArgument(Exception e, params object[] objects)
-        {
-            if (!CheckNotNull(objects))
-            {
-                throw e;
-            }
-        }
-
-        private static char dqm = '"';
+        private static readonly char DoubleQuotationMark = '"';
 
         public static List<string> Split(string str, string separator, bool trim = false)
         {
             List<string> list = new List<string>();
-            if (!CheckNotNull(str, separator))
-            {
-                throw new ArgumentException();
-            }
+            CheckStrings(str, separator);
 
-            if(str.Length == 0)
+            if (str.Length == 0)
             {
                 return list;
             }
@@ -153,12 +67,12 @@ namespace EasyStoryboard.Core.Commons
             {
                 char current = strs[i];
                 
-                if (current == dqm)
+                if (current == DoubleQuotationMark)
                 {
                     for (i++; i < strs.Length;i++)
                     {
                         current = strs[i];
-                        if(current == dqm)
+                        if(current == DoubleQuotationMark)
                         {
                             break;
                         }
@@ -224,7 +138,32 @@ namespace EasyStoryboard.Core.Commons
 
             return list;
         }
-        
+
+        public static T CastValue<T>(object value)
+        {
+            return (T)CastValue(typeof(T), value);
+        }
+
+        public static object CastValue(Type type, object value)
+        {
+            CheckNotNull(type, value);
+            if (type.IsEnum)
+            {
+                return Enum.Parse(type, value.ToString());
+            }
+            else
+            {
+                return Convert.ChangeType(value, type);
+            }
+        }
+
+        public static string GetEnumValue(Enum obj, bool getNum)
+        {
+            return getNum ?
+                obj.GetHashCode().ToString() :
+                obj.ToString();
+        }
+
         public static string GetFileMD5Hash(string path)
         {
             try

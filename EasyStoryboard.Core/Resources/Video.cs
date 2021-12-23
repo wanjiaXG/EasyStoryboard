@@ -1,13 +1,15 @@
 ﻿using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
-using System;
 
 namespace EasyStoryboard.Core.Resources
 {
-    public class Video
+    public class Video : StaticResource
     {
+        public Video() : base(ResoureLayerType.BackgroundOrVideo, ResourceType.Video) { }
 
-        //Video,startTime,filename,xOffset,yOffset
+        public Video(string filePath) : base(filePath, ResoureLayerType.BackgroundOrVideo, ResourceType.Video) { }
+
+        public Video(string baseDirectory, string relativePath) : base(baseDirectory, relativePath, ResoureLayerType.BackgroundOrVideo, ResourceType.Video) { }
 
     }
 }

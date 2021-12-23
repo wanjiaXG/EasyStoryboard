@@ -75,26 +75,8 @@ namespace EasyStoryboard.Core.Resources.Base
             {
                 if (value != null)
                 {
-                    while (value.Length > 0)
-                    {
-                        if (value.EndsWith("\\") || value.EndsWith("/"))
-                        {
-                            value = value.Substring(0, value.Length - 1);
-                        }
-                        else
-                        {
-                            value = new DirectoryInfo(value).FullName;
-                            break;
-                        }
-                    }
-                    _BaseDirectory = value;
+                    _BaseDirectory = new DirectoryInfo(value).FullName; ;
                 }
-                else
-                {
-                    _BaseDirectory = value;
-                }
-
-
             }
             get
             {
@@ -129,7 +111,7 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public abstract void LoadCode(Storyboard sb, string code);
 
-        public abstract string GetCode(SaveOptions ops);
+        public abstract string GetCode(Options ops);
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -221,7 +222,25 @@ namespace EasyStoryboard.Core.Commons
 
             return list;
         }
+        public static string GetFileMD5Hash(string path)
+        {
+            try
+            {
+                System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+                byte[] retVal = md5.ComputeHash(File.ReadAllBytes(path));
 
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < retVal.Length; i++)
+                {
+                    sb.Append(retVal[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+            catch
+            {
+                return "";
+            }
+        }
 
     }
 }

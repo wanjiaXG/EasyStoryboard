@@ -10,7 +10,7 @@ namespace EasyStoryboard.Core
     {
         public int Offset { set; get; }
 
-        private int _volume;
+        private int _volume = 100;
 
         public int Volume
         {
@@ -42,19 +42,17 @@ namespace EasyStoryboard.Core
         }
 
         //Sample,<time>,<layer_num>,"<filepath>",<volume>
-        public override string GetCode(SaveOptions ops)
+        public override string GetCode(Options ops)
         {
-            if (!File.Exists(AbsoluteFilePath)) throw new FileNotFoundException($"File '{AbsoluteFilePath}' not found.");
-
-            string filePath = ops.CopyFile.GetNewName(ops.OuputDirectory, RelativePath, AbsoluteFilePath);
-
+            string filePath = ops.CopyFile.GetFilePath(ops.OuputDirectory, RelativePath, AbsoluteFilePath);
 
             StringBuilder sb = new StringBuilder();
             sb.Append(Commons.CommonUtil.GetEnumValue(ResourceType, ops.Optimize))
                 .Append(',')
                 .Append(Offset)
                 .Append(',')
-                .Append(Commons.CommonUtil.GetEnumValue(LayerType,ops.Optimize))
+                .Append(Commons.CommonUtil.GetEnumValue(LayerType, ops.Optimize))
+                .Append(',')
                 .Append('"')
                 .Append(filePath)
                 .Append('"')

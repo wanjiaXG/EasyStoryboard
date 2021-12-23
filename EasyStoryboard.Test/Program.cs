@@ -34,14 +34,40 @@ namespace EasyStoryboard.Test
             //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
             Storyboard sb = new Storyboard("a.osb");
 
-            Sample sample = new Sample(null);
-            sample.BaseDirectory = null;
-            sample.RelativePath = null;
-            sample.AbsoluteFilePath = @"C:\Users\admin\Desktop\ProductImages\image2.jpeg";// @"D:\\123\sb\46.jpg";
+            Options options = new Options();
+            options.Optimize = true;
+            options.OuputDirectory = @"D:\\dist";
+
+            new DirectoryInfo(options.OuputDirectory).Delete(true);
+
+            Sample sample = new Sample(@"D:\1\demo.png");
+            sample.Offset = 2563;
             Console.WriteLine(sample.BaseDirectory);
             Console.WriteLine(sample.RelativePath);
             Console.WriteLine(sample.AbsoluteFilePath);
-            Console.WriteLine(sample.GetCode(SaveOptions.Default));
+            Console.WriteLine(sample.GetCode(options));
+
+            sample = new Sample(@"D:\2\demo.png");
+            sample.Offset = 2563;
+            Console.WriteLine(sample.BaseDirectory);
+            Console.WriteLine(sample.RelativePath);
+            Console.WriteLine(sample.AbsoluteFilePath);
+            Console.WriteLine(sample.GetCode(options));
+
+            sample = new Sample(@"D:\3\demo.png");
+            sample.Offset = 2563;
+            Console.WriteLine(sample.BaseDirectory);
+            Console.WriteLine(sample.RelativePath);
+            Console.WriteLine(sample.AbsoluteFilePath);
+            Console.WriteLine(sample.GetCode(options));
+
+            sample = new Sample(@"D:\4\demo.png");
+            sample.Offset = 2563;
+            Console.WriteLine(sample.BaseDirectory);
+            Console.WriteLine(sample.RelativePath);
+            Console.WriteLine(sample.AbsoluteFilePath);
+            Console.WriteLine(sample.GetCode(options));
+
             Console.ReadLine();
         }
     }

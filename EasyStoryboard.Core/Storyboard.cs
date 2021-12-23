@@ -152,7 +152,7 @@ namespace EasyStoryboard.Core
             }
         }
 
-        public void Save(SaveOptions options)
+        public void Save(Options options)
         {
             Type type = typeof(ResoureLayerType);
 

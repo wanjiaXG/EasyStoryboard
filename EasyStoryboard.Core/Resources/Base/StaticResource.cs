@@ -1,4 +1,5 @@
 ﻿using EasyStoryboard.Core.Commons;
+using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace EasyStoryboard.Core.Resources.Base
             }
             else
             {
-                throw new ArgumentException("Offset is not number.");
+                throw new NotNumberException(value);
             }
         }
 
@@ -68,6 +69,7 @@ namespace EasyStoryboard.Core.Resources.Base
         {
             CheckStrings(baseDirectory, code);
             List<string> list = Split(code, ",");
+            
             if(list.Count == 3 || list.Count == 5)
             {
                 CheckResourcType(list[0]);

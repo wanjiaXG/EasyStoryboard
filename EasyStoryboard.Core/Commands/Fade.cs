@@ -1,4 +1,5 @@
 ﻿using EasyStoryboard.Core.Commands.Base;
+using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace EasyStoryboard.Core.Commands
     {
         public Fade() : base(Enums.CommandType.Fade) { }
 
-        private float startOpacity = 1;
+        private float startOpacity = 1.0f;
         public float StartOpacity
         {
             set
@@ -22,7 +23,8 @@ namespace EasyStoryboard.Core.Commands
                 return startOpacity;
             }
         }
-        private float endOpacity = 1;
+        
+        private float endOpacity = 1.0f;
         public float EndOpacity
         {
             set
@@ -48,7 +50,6 @@ namespace EasyStoryboard.Core.Commands
             return opacity;
         }
 
-
         public override string GetCode()
         {
             return StartOpacity == endOpacity ?
@@ -62,50 +63,44 @@ namespace EasyStoryboard.Core.Commands
             CheckStrings(code);
 
             List<string> list = Split(code, ",", true);
-            
-            if(list.Count == 5 || list.Count == 6)
+            CkeckList(list, 5);
+            CheckCommandType(list[0]);
+            SetEasingType(list[1]);
+            SetStartTime(list[2]);
+            SetEndTime(list[3]);
+            SetStartOpacity(list[4]);
+
+            if (list.Count == 6)
             {
-                CheckCommandType(list[0]);
-                SetEasingType(list[1]);
-                SetStartTime(list[2]);
-                SetEndTime(list[3]);
-                SetStartOpacity(list[4]);
-                if (list.Count == 6)
-                {
-                    SetEndOpacity(list[5]);
-                }
-                else
-                {
-                    EndOpacity = StartOpacity;
-                }
+                SetEndOpacity(list[5]);
             }
             else
             {
-                throw new ArgumentException("Code format error.");
+                EndOpacity = StartOpacity;
             }
         }
 
         private void SetEndOpacity(string value)
         {
-            if (float.TryParse(value, out float startOpacity))
+            if (float.TryParse(value, out float opacity))
             {
-                EndOpacity = startOpacity;
+                EndOpacity = opacity;
             }
             else
             {
-                throw new ArgumentException("End opacity is not number.");
+                throw new NotNumberException(value);
             }
         }
 
         protected void SetStartOpacity(string value)
         {
-            if (float.TryParse(value, out float startOpacity))
+            if (float.TryParse(value, out float opacity))
             {
-                StartOpacity = startOpacity;
+                StartOpacity = opacity;
             }
             else
             {
-                throw new ArgumentException("Start opacity is not number.");
+                throw new NotNumberException(value);
             }
         }
 

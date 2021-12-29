@@ -6,11 +6,15 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 using EasyStoryboard.Core.Attributes;
+using EasyStoryboard.Core.Commands;
 
 namespace EasyStoryboard.Core
 {
     public class Storyboard
     {
+        private static Dictionary<string, Type>  
+
+
         #region static
         public readonly static int ScreenXMin = -110;
 

@@ -1,4 +1,5 @@
-﻿using EasyStoryboard.Core.Resources.Enums;
+﻿using EasyStoryboard.Core.Exceptions;
+using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -182,6 +183,12 @@ namespace EasyStoryboard.Core.Commons
             {
                 return "";
             }
+        }
+
+        public static void CkeckList<T>(List<T> list, int minCount)
+        {
+            if (list == null) throw new NotNullException();
+            if (list.Count < minCount) throw new OutOfBoundsException(list.Count, minCount, "");
         }
 
     }

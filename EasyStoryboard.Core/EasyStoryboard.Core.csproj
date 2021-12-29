@@ -57,6 +57,11 @@
     <Compile Include="DirectCopy.cs" />
     <Compile Include="Enums\CommandType.cs" />
     <Compile Include="Enums\EasingType.cs" />
+    <Compile Include="Exceptions\CodeFormatException.cs" />
+    <Compile Include="Exceptions\NotNullException.cs" />
+    <Compile Include="Exceptions\NotNumberException.cs" />
+    <Compile Include="Exceptions\OutOfBoundsException.cs" />
+    <Compile Include="Exceptions\UnknowTypeException.cs" />
     <Compile Include="ICopyFile.cs" />
     <Compile Include="ResourceGroup.cs" />
     <Compile Include="Resources\Animation.cs" />

@@ -1,4 +1,5 @@
-﻿using EasyStoryboard.Core.Resources.Base;
+﻿using EasyStoryboard.Core.Exceptions;
+using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace EasyStoryboard.Core
             {
                 if (value > 100 || value < 0)
                 {
-                    throw new ArgumentException("Volume out of bounds, the valid range is 0-100");
+                    throw new OutOfBoundsException(value, 0, 100);
                 }
                 _volume = value;
             }
@@ -67,7 +68,7 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                throw new ArgumentException("Offset is not number.");
+                throw new NotNumberException(value);
             }
         }
         
@@ -79,7 +80,7 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                throw new ArgumentException("LayerType is unknow type.");
+                throw new UnknowTypeException(value);
             }
         }
         
@@ -91,7 +92,7 @@ namespace EasyStoryboard.Core
             }
             else
             {
-                throw new ArgumentException("Volume is not number.");
+                throw new NotNumberException(value);
             }
         }
 
@@ -101,7 +102,7 @@ namespace EasyStoryboard.Core
             List<string> list = Split(code, ",");
             if(list.Count != 5)
             {
-                throw new ArgumentException("Code Format error.");
+                throw new CodeFormatException(code);
             }
             else
             {

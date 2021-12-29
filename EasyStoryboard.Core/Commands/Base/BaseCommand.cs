@@ -1,5 +1,6 @@
 ﻿using EasyStoryboard.Core.Attributes;
 using EasyStoryboard.Core.Enums;
+using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace EasyStoryboard.Core.Commands.Base
             }
             else
             {
-                throw new ArgumentException("StartTime is not number.");
+                throw new NotNumberException(value);
             }
         }
         protected void SetEndTime(string value)
@@ -82,9 +83,10 @@ namespace EasyStoryboard.Core.Commands.Base
             }
             else
             {
-                throw new ArgumentException("EndTime is not number.");
+                throw new NotNumberException(value);
             }
         }
+
 
         public override string ToString()
         {

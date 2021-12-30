@@ -2,11 +2,7 @@
 using EasyStoryboard.Core.Enums;
 using EasyStoryboard.Core.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using static EasyStoryboard.Core.Commons.CommonUtil;
 
@@ -22,26 +18,19 @@ namespace EasyStoryboard.Core.Commands.Base
 
         public CommandType CommandType { private set; get; }
 
-        public string Header { private set; get; }
+        public string TypeShortName { private set; get; }
 
         public BaseCommand(CommandType type)
         {
             CommandType = type;
             MemberInfo memberInfo = typeof(CommandType).GetMember(CommandType.ToString())[0];
             HeaderAttribute attr = (HeaderAttribute)memberInfo.GetCustomAttributes(typeof(HeaderAttribute), false)[0];
-            Header = attr.Header;
+            TypeShortName = attr.Header;
         }
 
-        public virtual string GetCode() 
-        {
-            return Header + ","
-                    + (int)EasingType + ","
-                    + StartTime + ","
-                    + EndTime;
-        }
+        protected string GetPreCode() => $"{TypeShortName},{(int)EasingType},{StartTime},{EndTime}";
 
         public abstract void LoadCode(string code);
-
 
         protected void SetEasingType(string value)
         {
@@ -51,14 +40,14 @@ namespace EasyStoryboard.Core.Commands.Base
             }
             else
             {
-                throw new ArgumentException("EasingType is unknow type.");
+                throw new UnknowTypeException(value);
             }
         }
 
         protected void CheckCommandType(string value)
         {
             CheckStrings(value);
-            if (!value.Equals(Header))
+            if (!value.Equals(TypeShortName))
             {
                 throw new ArgumentException($"CommandType is not {CommandType}.");
             }
@@ -75,6 +64,7 @@ namespace EasyStoryboard.Core.Commands.Base
                 throw new NotNumberException(value);
             }
         }
+        
         protected void SetEndTime(string value)
         {
             if (int.TryParse(value, out int time))
@@ -87,12 +77,8 @@ namespace EasyStoryboard.Core.Commands.Base
             }
         }
 
+        public override string ToString()=> GetCode();
 
-        public override string ToString()
-        {
-            return GetCode();
-        }
-
-        public string GetHeader() => Header;
+        public abstract string GetCode();
     }
 }

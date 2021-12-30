@@ -11,7 +11,7 @@ namespace EasyStoryboard.Core
     {
         public bool Optimize { set; get; } = false;
 
-        public string OuputDirectory { set; get; } = "dist";
+        public string OuputDirectory { set; get; } = "output";
 
         public ICopyFile CopyFile { set; get; } = new CopyFile();
     }

@@ -13,7 +13,5 @@ namespace EasyStoryboard.Core.Commands
 
         void LoadCode(string code);
 
-        string GetHeader();
-
     }
 }

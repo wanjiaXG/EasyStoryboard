@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Commands.Base
 {
-    public abstract class ContainerCommand : ICommand, IEnumerable
+    public abstract class ContainerCommand : ICommand, IEnumerable<ICommand>
     {
         public int StartTime { set; get; }
 
         protected List<ICommand> Commands = new List<ICommand>();
 
         public IEnumerator GetEnumerator() => Commands.GetEnumerator();
+
+        IEnumerator<ICommand> IEnumerable<ICommand>.GetEnumerator() => Commands.GetEnumerator();
 
         public virtual string GetCode()
         {
@@ -37,16 +39,9 @@ namespace EasyStoryboard.Core.Commands.Base
             return sb.ToString();
         }
 
-        public override string ToString()
-        {
-            return GetCode();
-        }
-
-        protected abstract string GetHeaderCode();
+        public override string ToString() => GetCode();
 
         public abstract void LoadCode(string code);
-
-        public abstract string GetHeader();
 
     }
 }

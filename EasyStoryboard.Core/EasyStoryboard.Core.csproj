@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Base\BaseCommand.cs" />
     <Compile Include="Commands\MoveX.cs" />
     <Compile Include="Commands\Base\SingleCommand.cs" />
     <Compile Include="Commands\Base\ContainerCommand.cs" />
     <Compile Include="Commands\Fade.cs" />
-    <Compile Include="Commands\Base\ICommand.cs" />
     <Compile Include="Commands\Loop.cs" />
     <Compile Include="Commands\Move.cs" />
     <Compile Include="Commands\MoveY.cs" />

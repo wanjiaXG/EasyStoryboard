@@ -21,5 +21,10 @@ namespace EasyStoryboard.Core.Commands
         {
             throw new NotImplementedException();
         }
+
+        internal override void LoadCode(List<string> args)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

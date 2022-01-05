@@ -21,7 +21,7 @@ namespace EasyStoryboard.Core
             {
                 if (value > 100 || value < 0)
                 {
-                    throw new OutOfBoundsException(value, 0, 100);
+                    throw new OutOfBoundsException(value: value, min: 0, max: 100);
                 }
                 _volume = value;
             }

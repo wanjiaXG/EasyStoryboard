@@ -29,25 +29,35 @@ namespace EasyStoryboard.Core
 
         #endregion
 
-        private static readonly Dictionary<string, Type> CommandTypes = new Dictionary<string, Type>();
-
-        static Util(){
-            foreach (object item in Enum.GetValues(typeof(CommandType)))
+        public static T ParseNumber<T>(string value)
+        {
+            Type type = typeof(T);
+            try
             {
-                if(item is CommandType type)
-                {
-                    MemberInfo memberInfo = typeof(CommandType).GetMember(type.ToString())[0];
-                    CommandTypeAttribute attr = (CommandTypeAttribute)memberInfo.GetCustomAttributes(typeof(CommandTypeAttribute), false)[0];
-                    CommandTypes.Add(attr.Header, attr.Type);
-                }
+                object result = type.InvokeMember("Parse",
+                BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null,
+                args: new object[] { value });
+                return (T)result;
+            }
+            catch
+            {
+                throw new NotNumberException(value, type);
             }
         }
 
-        public static ICommand GetCommandType(string shortName)
+        public static T ParseEnum<T>(string value)
         {
-            if (!CommandTypes.ContainsKey(shortName)) throw new UnknowTypeException(shortName);
-            return (ICommand)CommandTypes[shortName].GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
+            Type type = typeof(T);
+            try
+            {
+                return (T)Enum.Parse(type, value);
+
+            }catch
+            {
+                throw new UnknowTypeException(value, type);
+            }
         }
+
 
         public static void CheckStrings(params string[] objects)
         {
@@ -76,14 +86,19 @@ namespace EasyStoryboard.Core
 
         public static List<string> Split(string str, string separator, bool trim = false)
         {
+            //初始化返回值
             List<string> list = new List<string>();
-            CheckStrings(str, separator);
 
+            //参数校验
+            CheckNotNull(str, separator);
+
+            //判断源字符串长度
             if (str.Length == 0)
             {
                 return list;
             }
 
+            //判断分割符号长度
             if(separator.Length == 0)
             {
                 if (trim)
@@ -94,18 +109,20 @@ namespace EasyStoryboard.Core
                 {
                     list.Add(str);
                 }
-                
                 return list;
             }
 
             char[] strs = str.ToArray();
             char[] seps = separator.ToCharArray();
 
+            //单项
             StringBuilder sb = new StringBuilder();
+            
             for (int i = 0; i < strs.Length; i++)
             {
                 char current = strs[i];
                 
+                //引号处理
                 if (current == DoubleQuotationMark)
                 {
                     for (i++; i < strs.Length;i++)
@@ -121,10 +138,11 @@ namespace EasyStoryboard.Core
                         }
                     }
                 }
+                
                 else
                 {
                     bool flag = false;
-                    for (int j =0; j < seps.Length; j++)
+                    for (int j = 0; j < seps.Length; j++)
                     {
                         if(j + i >= strs.Length)
                         {
@@ -155,6 +173,7 @@ namespace EasyStoryboard.Core
                             list.Add(sb.ToString());
                         }
                         sb.Clear();
+                        i += seps.Length - 1;
                     }
                     else
                     {
@@ -162,6 +181,7 @@ namespace EasyStoryboard.Core
                     }
 
                 }
+                
                 if(i + 1 >= strs.Length && sb.Length >= 1)
                 {
                     if (trim)

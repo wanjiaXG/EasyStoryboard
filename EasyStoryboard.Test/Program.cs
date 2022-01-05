@@ -1,5 +1,6 @@
 ﻿using EasyStoryboard.Core;
 using EasyStoryboard.Core.Commands;
+using EasyStoryboard.Core.Exceptions;
 using EasyStoryboard.Core.Resources;
 using EasyStoryboard.Core.Resources.Base;
 using EasyStoryboard.Core.Resources.Enums;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,29 +18,26 @@ namespace EasyStoryboard.Test
 {
     class Program
     {
+        public static T ParseNumberValue<T>(string value)
+        {
+            Type type = typeof(T);
+            try
+            {
+                object result = type.InvokeMember("Parse",
+                BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null,
+                args: new object[] { value });
+                return (T)result;
+            }
+            catch
+            {
+                throw new NotNumberException(value, type);
+            }
+        }
+
         static void Main(string[] args)
         {
-            /*            string path = @"F:\osu\Songs\1607795 Yonder Voice - Shrine Maiden - Eien No Miko\Yonder Voice - Shrine Maiden - Eien No Miko (__Ag).osb";
-                        path = @"D:\Program Files\osu!\Songs\848003 Culprate - Aurora\Culprate - Aurora (BOUYAAA).osb";
-                        Storyboard storyboard = Storyboard.Open(path);
-                        Console.WriteLine(storyboard.BaseDirectory);
-                        Console.WriteLine(storyboard.FileName);
-
-                        Console.ReadLine();
-
-
-                        FileInfo info = new FileInfo(@"C:\ss\dcsd\df\xc\cvsd\v.osb");
-                        Console.WriteLine(info.Exists);
-                        Console.WriteLine(info.Name);
-                        Console.WriteLine(info.DirectoryName);
-
-                        Console.WriteLine((LayerType)(-100));*/
-
-            //string[] vs = typeof(StoryboardLayerType).GetEnumNames(); foreach (var item in vs) Console.WriteLine(item); ;
-
             Fade fade = new Fade();
             fade.LoadCode("F,4,2121,1212,0.5,0.9");
-            Console.WriteLine(fade);
 
             Loop loop = new Loop();
             loop.Add(fade);
@@ -46,18 +45,24 @@ namespace EasyStoryboard.Test
             loop.Add(fade);
             loop.Add(fade);
 
+            fade = new Fade();
+            fade.LoadCode("F,4,2121,1212,0.5,0.6");
             Loop l2 = new Loop();
             l2.Add(fade);
             l2.Add(fade);
             l2.Add(fade);
             l2.Add(fade);
 
+            fade = new Fade();
+            fade.LoadCode("F,4,2121,1212,0.5,0.4");
             Loop l3 = new Loop();
             l3.Add(fade);
             l3.Add(fade);
             l3.Add(fade);
             l3.Add(fade);
 
+            fade = new Fade();
+            fade.LoadCode("F,4,2121,1212,0.5,0.2");
             l2.Add(l3);
             loop.Add(l2);
             loop.Add(fade);
@@ -66,8 +71,15 @@ namespace EasyStoryboard.Test
             loop.Add(fade);
 
             Console.WriteLine(loop);
-            Console.WriteLine(GetCommandType("T"));
+            Console.WriteLine("--------------------------");
+
+            Loop loop2 = new Loop();
+            string sc = loop.GetCode();
+            loop2.LoadCode(sc);
+            Console.WriteLine(loop2);
             Console.ReadLine();
+
+
 
             Options options = new Options();
             options.Optimize = false;

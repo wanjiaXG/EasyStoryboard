@@ -27,5 +27,10 @@ namespace EasyStoryboard.Core.Commands
         {
             return $"{TypeShortName},{TriggerType},{StartTime},{EndTime}";
         }
+
+        protected override void LoadHeaderCode(string code)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,15 +1,6 @@
-﻿using EasyStoryboard.Core.Attributes;
-using EasyStoryboard.Core.Commands.Base;
+﻿using EasyStoryboard.Core.Commands.Base;
 using EasyStoryboard.Core.Enums;
-using EasyStoryboard.Core.Exceptions;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
 using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core.Commands
@@ -20,22 +11,18 @@ namespace EasyStoryboard.Core.Commands
 
         public int Count { set; get; }
 
-        public void Add(ICommand command)
-        {
-            if(command == null) throw new NotNullException();
-
-            Commands.Add(command);
-        }
-
-
-        public override void LoadCode(string code)
-        {
-            
-        }
-
         protected override string GetHeaderCode()
         {
             return $"{TypeShortName},{StartTime},{Count}";
+        }
+
+        protected override void LoadHeaderCode(string code)
+        {
+            List<string> list = Split(code, ",", true);
+            CheckList(list, 3);
+            CheckCommandType(list[0]);
+            StartTime = ParseNumber<int>(list[1]);
+            Count = ParseNumber<int>(list[2]);
         }
 
     }

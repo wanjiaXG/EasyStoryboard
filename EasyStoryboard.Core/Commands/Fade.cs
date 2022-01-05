@@ -1,15 +1,14 @@
 ﻿using EasyStoryboard.Core.Commands.Base;
+using EasyStoryboard.Core.Enums;
 using EasyStoryboard.Core.Exceptions;
-using System;
 using System.Collections.Generic;
-
 using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core.Commands
 {
     public class Fade : SingleCommand
     {
-        public Fade() : base(Enums.CommandType.Fade) { }
+        public Fade() : base(CommandType.Fade) { }
 
         private float startOpacity = 1.0f;
         public float StartOpacity
@@ -56,45 +55,27 @@ namespace EasyStoryboard.Core.Commands
         {
             CheckStrings(code);
 
-            List<string> list = Split(code, ",", true);
-            CheckList(list, 5);
-            CheckCommandType(list[0]);
-            SetEasingType(list[1]);
-            SetStartTime(list[2]);
-            SetEndTime(list[3]);
-            SetStartOpacity(list[4]);
+            List<string> args = Split(code, ",", true);
+            CheckList(args, 5);
+            LoadCode(args);
+        }
 
-            if (list.Count == 6)
+        internal override void LoadCode(List<string> args)
+        {
+            CheckCommandType(args[0]);
+
+            EasingType = ParseEnum<EasingType>(args[1]);
+            StartTime = ParseNumber<int>(args[2]);
+            EndTime = ParseNumber<int>(args[3]);
+            StartOpacity = ParseNumber<float>(args[4]);
+
+            if (args.Count == 6)
             {
-                SetEndOpacity(list[5]);
+                EndOpacity = ParseNumber<float>(args[5]);
             }
             else
             {
                 EndOpacity = StartOpacity;
-            }
-        }
-
-        private void SetEndOpacity(string value)
-        {
-            if (float.TryParse(value, out float opacity))
-            {
-                EndOpacity = opacity;
-            }
-            else
-            {
-                throw new NotNumberException(value);
-            }
-        }
-
-        protected void SetStartOpacity(string value)
-        {
-            if (float.TryParse(value, out float opacity))
-            {
-                StartOpacity = opacity;
-            }
-            else
-            {
-                throw new NotNumberException(value);
             }
         }
 

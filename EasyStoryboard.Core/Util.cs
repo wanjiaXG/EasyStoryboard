@@ -1,17 +1,54 @@
-﻿using EasyStoryboard.Core.Exceptions;
-using EasyStoryboard.Core.Resources.Enums;
+﻿using EasyStoryboard.Core.Attributes;
+using EasyStoryboard.Core.Commands.Base;
+using EasyStoryboard.Core.Enums;
+using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace EasyStoryboard.Core.Commons
+namespace EasyStoryboard.Core
 {
-    internal class CommonUtil
+    public class Util
     {
+        #region Screen Range
+
+        public readonly static int ScreenXMin = -110;
+
+        public readonly static int ScreenXMax = 750;
+
+        public readonly static int ScreenYMin = 0;
+
+        public readonly static int ScreenYMax = 480;
+
+        public readonly static int CenterX = 320;
+
+        public readonly static int CenterY = 240;
+
+        #endregion
+
+        private static readonly Dictionary<string, Type> CommandTypes = new Dictionary<string, Type>();
+
+        static Util(){
+            foreach (object item in Enum.GetValues(typeof(CommandType)))
+            {
+                if(item is CommandType type)
+                {
+                    MemberInfo memberInfo = typeof(CommandType).GetMember(type.ToString())[0];
+                    CommandTypeAttribute attr = (CommandTypeAttribute)memberInfo.GetCustomAttributes(typeof(CommandTypeAttribute), false)[0];
+                    CommandTypes.Add(attr.Header, attr.Type);
+                }
+            }
+        }
+
+        public static ICommand GetCommandType(string shortName)
+        {
+            if (!CommandTypes.ContainsKey(shortName)) throw new UnknowTypeException(shortName);
+            return (ICommand)CommandTypes[shortName].GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
+        }
+
         public static void CheckStrings(params string[] objects)
         {
             foreach (var item in objects)
@@ -33,6 +70,7 @@ namespace EasyStoryboard.Core.Commons
                 }
             }
         }
+
 
         private static readonly char DoubleQuotationMark = '"';
 
@@ -185,7 +223,7 @@ namespace EasyStoryboard.Core.Commons
             }
         }
 
-        public static void CkeckList<T>(List<T> list, int minCount)
+        public static void CheckList<T>(List<T> list, int minCount)
         {
             if (list == null) throw new NotNullException();
             if (list.Count < minCount) throw new OutOfBoundsException(list.Count, minCount, "");

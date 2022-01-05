@@ -4,11 +4,11 @@ using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Reflection;
 
-using static EasyStoryboard.Core.Commons.CommonUtil;
+using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core.Commands.Base
 {
-    public abstract class BaseCommand : ICommand
+    public abstract class SingleCommand : ICommand
     {
         public int StartTime { set; get; }
 
@@ -16,15 +16,15 @@ namespace EasyStoryboard.Core.Commands.Base
 
         public EasingType EasingType { set; get; }
 
-        public CommandType CommandType { private set; get; }
+        public CommandType CommandType { get; }
 
-        public string TypeShortName { private set; get; }
+        public string TypeShortName { get; }
 
-        public BaseCommand(CommandType type)
+        public SingleCommand(CommandType type)
         {
             CommandType = type;
             MemberInfo memberInfo = typeof(CommandType).GetMember(CommandType.ToString())[0];
-            HeaderAttribute attr = (HeaderAttribute)memberInfo.GetCustomAttributes(typeof(HeaderAttribute), false)[0];
+            CommandTypeAttribute attr = (CommandTypeAttribute)memberInfo.GetCustomAttributes(typeof(CommandTypeAttribute), false)[0];
             TypeShortName = attr.Header;
         }
 
@@ -46,8 +46,7 @@ namespace EasyStoryboard.Core.Commands.Base
 
         protected void CheckCommandType(string value)
         {
-            CheckStrings(value);
-            if (!value.Equals(TypeShortName))
+            if (!TypeShortName.Equals(value))
             {
                 throw new ArgumentException($"CommandType is not {CommandType}.");
             }

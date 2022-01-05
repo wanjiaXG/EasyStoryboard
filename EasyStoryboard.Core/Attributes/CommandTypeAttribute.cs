@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Attributes
 {
-    public class HeaderAttribute : Attribute
+    public class CommandTypeAttribute : Attribute
     {
         public string Header { private set; get; }
 
-        public HeaderAttribute(string header)
+        public Type Type { set; get; }
+
+        public CommandTypeAttribute(string header)
         {
             Header = header;
         }

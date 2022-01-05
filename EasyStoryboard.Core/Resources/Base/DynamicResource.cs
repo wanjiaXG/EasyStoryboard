@@ -24,7 +24,7 @@ namespace EasyStoryboard.Core.Resources.Base
 
         public OriginType OriginType { set; get; }
 
-        List<BaseCommand> Commands { get; } = new List<BaseCommand>();
+        List<SingleCommand> Commands { get; } = new List<SingleCommand>();
         
         protected void SetLayerType(string value)
         {

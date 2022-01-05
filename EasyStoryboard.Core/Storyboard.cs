@@ -8,30 +8,18 @@ using System.Reflection;
 using EasyStoryboard.Core.Attributes;
 using EasyStoryboard.Core.Commands;
 
+using static EasyStoryboard.Core.Util;
+
 namespace EasyStoryboard.Core
 {
     public class Storyboard
     {
-        private static Dictionary<string, Type>  
 
-
-        #region static
-        public readonly static int ScreenXMin = -110;
-
-        public readonly static int ScreenXMax = 750;
-
-        public readonly static int ScreenYMin = 0;
-
-        public readonly static int ScreenYMax = 480;
-
-        public readonly static int CenterX = 320;
-
-        public readonly static int CenterY = 240;
-
+        
         public static Storyboard Parse(string code)
         {
             Storyboard sb = new Storyboard();
-            List<string> list = Commons.CommonUtil.Split(code, "\n", true);
+            List<string> list = Split(code, "\n", true);
             int lineNum = 1;
             foreach (var line in list)
             {
@@ -92,7 +80,7 @@ namespace EasyStoryboard.Core
         {
             return Open(file, Encoding.UTF8);
         }
-        #endregion
+
 
         private Dictionary<string, List<ResourceGroup>> Resources;
 
@@ -180,7 +168,7 @@ namespace EasyStoryboard.Core
             foreach(var item in type.GetEnumNames())
             {
                 MemberInfo memberInfo = type.GetMember(item)[0];
-                HeaderAttribute attr = (HeaderAttribute)memberInfo.GetCustomAttributes(typeof(HeaderAttribute), false)[0];
+                CommandTypeAttribute attr = (CommandTypeAttribute)memberInfo.GetCustomAttributes(typeof(CommandTypeAttribute), false)[0];
 
                 sb.Append(attr.Header).Append("\r\n");
 

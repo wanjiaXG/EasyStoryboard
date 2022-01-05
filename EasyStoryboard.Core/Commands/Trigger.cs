@@ -1,4 +1,5 @@
 ﻿using EasyStoryboard.Core.Commands.Base;
+using EasyStoryboard.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,22 @@ namespace EasyStoryboard.Core.Commands
 {
     public class Trigger : ContainerCommand
     {
+        public Trigger() : base(CommandType.Trigger) { }
+
+
+        public TriggerType TriggerType { set; get; }
+
         public int EndTime { set; get; }
 
         public override void LoadCode(string code)
         {
-            throw new NotImplementedException();
+
         }
 
-        public override string GetHeader() => "T";
 
         protected override string GetHeaderCode()
         {
-            return $"{GetHeader()},{StartTime},{EndTime}";
+            return $"{TypeShortName},{TriggerType},{StartTime},{EndTime}";
         }
     }
 }

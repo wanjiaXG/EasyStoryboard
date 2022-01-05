@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using static EasyStoryboard.Core.Commons.CommonUtil;
+using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core.Resources.Base
 {

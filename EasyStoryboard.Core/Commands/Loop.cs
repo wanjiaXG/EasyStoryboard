@@ -1,6 +1,7 @@
 ﻿using EasyStoryboard.Core.Attributes;
 using EasyStoryboard.Core.Commands.Base;
 using EasyStoryboard.Core.Enums;
+using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,25 +10,23 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+using static EasyStoryboard.Core.Util;
+
 namespace EasyStoryboard.Core.Commands
 {
     public class Loop : ContainerCommand
     {
+        public Loop() : base(CommandType.Loop) { }
+
         public int Count { set; get; }
 
         public void Add(ICommand command)
         {
-            if(command != null)
-            {
-                Commands.Add(command);
-            }
-            else
-            {
-                throw new ArgumentException("Argument can't be null.");
-            }
+            if(command == null) throw new NotNullException();
+
+            Commands.Add(command);
         }
 
-        public override string GetHeader() => "L";
 
         public override void LoadCode(string code)
         {
@@ -36,7 +35,8 @@ namespace EasyStoryboard.Core.Commands
 
         protected override string GetHeaderCode()
         {
-            return $"{GetHeader()},{Count}";
+            return $"{TypeShortName},{StartTime},{Count}";
         }
+
     }
 }

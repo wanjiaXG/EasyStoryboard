@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using static EasyStoryboard.Core.Commons.CommonUtil;
+using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core
 {

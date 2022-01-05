@@ -3,11 +3,11 @@ using EasyStoryboard.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 
-using static EasyStoryboard.Core.Commons.CommonUtil;
+using static EasyStoryboard.Core.Util;
 
 namespace EasyStoryboard.Core.Commands
 {
-    public class Fade : BaseCommand
+    public class Fade : SingleCommand
     {
         public Fade() : base(Enums.CommandType.Fade) { }
 
@@ -39,22 +39,16 @@ namespace EasyStoryboard.Core.Commands
 
         private float CheckOpacity(float opacity)
         {
-            if (opacity < 0.0f)
-            {
-                opacity = 0.0f;
-            }
-            else if (opacity > 1.0f)
-            {
-                opacity = 1.0f;
-            }
+            if (opacity < 0.0f ||opacity > 1.0f) throw new OutOfBoundsException(opacity, 0, 1);
+
             return opacity;
         }
 
         public override string GetCode()
         {
             return StartOpacity == endOpacity ?
-                $"{base.GetCode()},{startOpacity}" :
-                $"{base.GetCode()},{startOpacity},{EndOpacity}";
+                $"{GetPreCode()},{startOpacity}" :
+                $"{GetPreCode()},{startOpacity},{EndOpacity}";
         }
 
         //_F,(easing),(starttime),(endtime),(start_opacity),(end_opacity)
@@ -63,7 +57,7 @@ namespace EasyStoryboard.Core.Commands
             CheckStrings(code);
 
             List<string> list = Split(code, ",", true);
-            CkeckList(list, 5);
+            CheckList(list, 5);
             CheckCommandType(list[0]);
             SetEasingType(list[1]);
             SetStartTime(list[2]);

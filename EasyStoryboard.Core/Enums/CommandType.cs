@@ -1,37 +1,38 @@
 ﻿using EasyStoryboard.Core.Attributes;
+using EasyStoryboard.Core.Commands;
 
 namespace EasyStoryboard.Core.Enums
 {
     public enum CommandType
     {
-        [Header("F")]
+        [CommandType("F", Type = typeof(Fade))]
         Fade,
 
-        [Header("L")]
+        [CommandType("L", Type = typeof(Loop))]
         Loop,
 
-        [Header("M")]
+        [CommandType("M", Type = typeof(Move))]
         Move,
 
-        [Header("MX")]
+        [CommandType("MX", Type = typeof(MoveX))]
         MoveX,
 
-        [Header("MY")]
+        [CommandType("MY", Type = typeof(MoveY))]
         MoveY,
 
-        [Header("P")]
+        [CommandType("P", Type = typeof(Parmenter))]
         Parmenter,
 
-        [Header("R")]
+        [CommandType("R", Type = typeof(Rotate))]
         Rotate,
 
-        [Header("S")]
+        [CommandType("S", Type = typeof(Scale))]
         Scale,
 
-        [Header("T")]
+        [CommandType("T", Type = typeof(Trigger))]
         Trigger,
 
-        [Header("V")]
+        [CommandType("V", Type = typeof(VectorScale))]
         VectorScale
     }
 }

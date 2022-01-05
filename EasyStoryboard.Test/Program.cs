@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static EasyStoryboard.Core.Util;
+
 namespace EasyStoryboard.Test
 {
     class Program
@@ -64,8 +66,8 @@ namespace EasyStoryboard.Test
             loop.Add(fade);
 
             Console.WriteLine(loop);
-
-            Console.WriteLine("");
+            Console.WriteLine(GetCommandType("T"));
+            Console.ReadLine();
 
             Options options = new Options();
             options.Optimize = false;

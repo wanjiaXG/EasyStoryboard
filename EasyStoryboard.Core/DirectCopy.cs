@@ -25,7 +25,7 @@ namespace EasyStoryboard.Core
 
             if (!File.Exists(sourcePath)) throw new FileNotFoundException($"File '{sourcePath}' not found.");
 
-            string currentMd5 = Commons.CommonUtil.GetFileMD5Hash(sourcePath);
+            string currentMd5 = Util.GetFileMD5Hash(sourcePath);
 
             if (files.ContainsKey(currentMd5))
             {
@@ -55,7 +55,7 @@ namespace EasyStoryboard.Core
                         dic.Add(newPath, num);
                     }
 
-                    string oldMd5 = Commons.CommonUtil.GetFileMD5Hash(newPath);
+                    string oldMd5 = Util.GetFileMD5Hash(newPath);
 
                     if (!oldMd5.Equals(currentMd5))
                     {

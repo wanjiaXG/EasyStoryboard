@@ -1,12 +1,9 @@
 ﻿using EasyStoryboard.Core.Attributes;
 using EasyStoryboard.Core.Enums;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyStoryboard.Core.Commands.Base
 {
@@ -14,13 +11,26 @@ namespace EasyStoryboard.Core.Commands.Base
     {
         public int StartTime { set; get; }
 
+        public string TypeShortName { get; }
+
+        public CommandType CommandType { get; }
+        public object CheckList { get; private set; }
+
+        public ContainerCommand(CommandType type)
+        {
+            CommandType = type;
+            MemberInfo memberInfo = typeof(CommandType).GetMember(CommandType.ToString())[0];
+            CommandTypeAttribute attr = (CommandTypeAttribute)memberInfo.GetCustomAttributes(typeof(CommandTypeAttribute), false)[0];
+            TypeShortName = attr.Header;
+        }
+
         protected List<ICommand> Commands = new List<ICommand>();
 
         public IEnumerator GetEnumerator() => Commands.GetEnumerator();
 
         IEnumerator<ICommand> IEnumerable<ICommand>.GetEnumerator() => Commands.GetEnumerator();
 
-        public virtual string GetCode()
+        public string GetCode()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(GetHeaderCode());
@@ -41,7 +51,6 @@ namespace EasyStoryboard.Core.Commands.Base
 
         public override string ToString() => GetCode();
 
-        public abstract void LoadCode(string code);
-
+        protected abstract string GetHeaderCode();
     }
 }

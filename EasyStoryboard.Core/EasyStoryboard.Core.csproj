@@ -41,22 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Base\BaseCommand.cs" />
+    <Compile Include="Commands\MoveX.cs" />
+    <Compile Include="Commands\Base\SingleCommand.cs" />
     <Compile Include="Commands\Base\ContainerCommand.cs" />
     <Compile Include="Commands\Fade.cs" />
-    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Base\ICommand.cs" />
     <Compile Include="Commands\Loop.cs" />
     <Compile Include="Commands\Move.cs" />
+    <Compile Include="Commands\MoveY.cs" />
     <Compile Include="Commands\Parmenter.cs" />
     <Compile Include="Commands\Rotate.cs" />
     <Compile Include="Commands\Scale.cs" />
     <Compile Include="Commands\Trigger.cs" />
     <Compile Include="Commands\VectorScale.cs" />
-    <Compile Include="Commons\CommonUtil.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="Commons\Location.cs" />
     <Compile Include="DirectCopy.cs" />
     <Compile Include="Enums\CommandType.cs" />
     <Compile Include="Enums\EasingType.cs" />
+    <Compile Include="Enums\TriggerType.cs" />
     <Compile Include="Exceptions\CodeFormatException.cs" />
     <Compile Include="Exceptions\NotNullException.cs" />
     <Compile Include="Exceptions\NotNumberException.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\ResoureLayerType.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Attributes\HeaderAttribute.cs" />
+    <Compile Include="Attributes\CommandTypeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Enums\" />
